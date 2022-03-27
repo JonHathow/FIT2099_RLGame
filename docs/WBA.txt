@@ -2,15 +2,65 @@ Assignment 1A
 Group 11 - Work Agreement Breakdown (WBA)
 
 Group Members Signature:
-1) How Yu Chern
-2) Eugene Kah Chun Fan
-3) Suhail Mohammed - software
+1) How Yu Chern -
+2) Eugene Kah Chun Fan -
+3) Suhail Mohammed -
 
-Task Breakdown:
-REQ1 -
-REQ2 -
-REQ3 -
-REQ4 -
-REQ5 -
-REQ6 -
-REQ7 -
+Task Breakdown and Summary:
+REQ1: Add Trees to Terrain
+Person In Charge: Suhail
+Review By: Yu Chern
+Deadline: 3/4/2022
+1) Sprout: Spawns Goombas
+2) Sappling: Creates Coins
+3) Mature: Spawns Goombas
+
+REQ2: Jump Ability
+Person In Charge: Suhail
+Review By: Yu Chern
+Deadline: 3/4/2022
+1) Jump over Wall
+2) Jump over Tree(s)
+3) Enemies cannot jump, but can walk to lower ground
+
+REQ3: Enemies
+Person In Charge: Eugene
+Review By: Suhail
+Deadline: 3/4/2022
+1) Goombas - 20HP, kicks, and suicide
+2) Koopas - 100HP, retreats into shell when defeated, can only be destroyed by a wrench
+
+REQ4: Magical Items
+Person In Charge: Eugene
+Review By: Suhail
+Deadline: 3/4/2022
+1) Super Mushroom - Max Health + 50, 100% Jump Success Rate
+2) Power Star - Heal 200 HP, invincibility, last 10 turns
+
+REQ5: Trading
+Person In Charge: Yu Chern
+Review By: Eugene
+Deadline: 3/4/2022
+1) Coins - Drops from Sapplings
+2) Wrench: $200
+3) Super Mushroom: $400
+4) Power Star: $600
+5) Toad - Friendly actor surrounded by brick walls, allows trading.
+
+REQ6: Monologue
+Person In Charge: Yu Chern
+Review By: Eugene
+Deadline: 3/4/2022
+1) Toad - 4 default sentences
+2) Toad will not say 1st sentence if the player has a wrench
+
+REQ7: Reset Game
+Person In Charge: All 3 Members
+Review By: All 3 Members
+Deadline: 7/4/2022
+1) Reset - Once per Game
+2) Trees have a 50% chance to be converted back to Dirt
+3) All enemies are killed.
+4) Reset player status (e.g., from Super Mushroom and Power Star)
+5) Heal player to maximum
+6) Remove all coins on the ground (Super Mushrooms and Power Stars may stay).
