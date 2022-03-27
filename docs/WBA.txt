@@ -4,7 +4,7 @@ Group 11 - Work Agreement Breakdown (WBA)
 Group Members Signature:
 1) How Yu Chern
 2) Eugene Kah Chun Fan
-3) Suhail Mohammed
+3) Suhail Mohammed - software
 
 Task Breakdown:
 REQ1 -
