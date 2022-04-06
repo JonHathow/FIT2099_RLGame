@@ -47,6 +47,8 @@ public class Goomba extends Actor {
 		if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
 			actions.add(new AttackAction(this,direction));
 		}
+//		this.behaviours.put(30, new AttackBehaviour(otherActor,direction));
+//		this.behaviours.put(20, new FollowBehaviour(otherActor));
 		return actions;
 	}
 

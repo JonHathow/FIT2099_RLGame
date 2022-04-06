@@ -21,7 +21,7 @@ public class Koopa extends Actor {
      * Constructor.
      */
     public Koopa() {
-        super("Koopa", 'k', 100);
+        super("Koopa", 'K', 100);
         this.behaviours.put(10, new WanderBehaviour());
         this.addCapability(Status.HOSTILE_TO_ENEMY);
     }

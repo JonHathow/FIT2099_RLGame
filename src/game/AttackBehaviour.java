@@ -3,6 +3,7 @@ package game;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.weapons.Weapon;
 
 import java.util.Random;
 
@@ -27,11 +28,28 @@ public class AttackBehaviour extends Action implements Behaviour{
     public AttackBehaviour(Actor target, String direction) {
         this.target = target;
         this.direction = direction;
+
     }
 
     @Override
     public Action getAction(Actor actor, GameMap map) {
-        return null;
+
+        boolean canAttack= true;
+        Weapon weapon = actor.getWeapon();
+
+        if (!(rand.nextInt(100) <= weapon.chanceToHit())) {
+            canAttack = false;
+        }
+        if (canAttack) {
+            int damage = weapon.damage();
+            System.out.println(actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.");
+            target.hurt(damage);
+            return this;
+        }
+        else{
+            return null;
+        }
+
     }
 
     @Override
@@ -41,6 +59,6 @@ public class AttackBehaviour extends Action implements Behaviour{
 
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " attacks " + target + " at " + direction;
+        return null;
     }
 }
