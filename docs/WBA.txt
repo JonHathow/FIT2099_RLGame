@@ -1,70 +1,40 @@
 Assignment 1A
-Group 11 - Work Agreement Breakdown (WBA)
+Group 11 - Work Agreement Breakdown (WBA) - Version 2
+Author Date: 6/4/2022
 
 Group Members Signature:
 1) How Yu Chern - I accept this WBA
-2) Eugene Kah Chun Fan - I accept this WBA
-3) Suhail Mohammed - I accept this WBA
+2) Eugene Kah Chun Fan -
 
 Task Breakdown and Summary:
-- Each person in charge of a requirement (REQ) will be in charge of it's respective UML Diagram, Sequence Diagram, and
+- Each person in charge of a requirement (REQ) will be in charge of it's respective UML Diagram and
   Design Rational components. Each member's components will be combined to create the complete version of the UML Diagram,
-  Sequence Diagram, and Design Rational.
+  and Design Rational for all 6 Requirements. This will be done in each member's own time until the deadline. Each person's
+  work will be reviewed by other members of the group, to ensure that it is complete and up to date.
+- Each person will pick one interesting feature in one of the 6 requirements, and will create a sequence diagram out of it.
+- For Group Tasks, members will meet up and collaborate, working together to complete the groups tasks of the requirements.
+- This WBA, and all 6 Requirement's Diagrams and Design Rational will combined into a single PDF for submission.
 
+Tasks for How Yu Chern
+Review By: Eugene Fan
+Deadline: 9/4/2022
+
+Tasks:
 REQ1: Add Trees to Terrain
-Person In Charge: Suhail
-Review By: Yu Chern
-Deadline: 3/4/2022
-1) Sprout: Spawns Goombas
-2) Sappling: Creates Coins
-3) Mature: Spawns Goombas
-
 REQ2: Jump Ability
-Person In Charge: Suhail
-Review By: Yu Chern
-Deadline: 3/4/2022
-1) Jump over Wall
-2) Jump over Tree(s)
-3) Enemies cannot jump, but can walk to lower ground
 
+Tasks for Eugene Fan
+Review By: How Yu Chern
+Deadline: 9/4/2022
+
+Tasks:
 REQ3: Enemies
-Person In Charge: Eugene
-Review By: Suhail
-Deadline: 3/4/2022
-1) Goombas - 20HP, kicks, and suicide
-2) Koopas - 100HP, retreats into shell when defeated, can only be destroyed by a wrench
-
 REQ4: Magical Items
-Person In Charge: Eugene
-Review By: Suhail
-Deadline: 3/4/2022
-1) Super Mushroom - Max Health + 50, 100% Jump Success Rate
-2) Power Star - Heal 200 HP, invincibility, last 10 turns
 
+Group Tasks
+-These tasks will be done and will be reviewed by both group member.
+Deadline: 10/4/2022
+
+Tasks:
 REQ5: Trading
-Person In Charge: Yu Chern
-Review By: Eugene
-Deadline: 3/4/2022
-1) Coins - Drops from Sapplings
-2) Wrench: $200
-3) Super Mushroom: $400
-4) Power Star: $600
-5) Toad - Friendly actor surrounded by brick walls, allows trading.
-
-REQ6: Monologue
-Person In Charge: Yu Chern
-Review By: Eugene
-Deadline: 3/4/2022
-1) Toad - 4 default sentences
-2) Toad will not say 1st sentence if the player has a wrench
-
 REQ7: Reset Game
-Person In Charge: All 3 Members
-Review By: All 3 Members
-Deadline: 7/4/2022
-1) Reset - Once per Game
-2) Trees have a 50% chance to be converted back to Dirt
-3) All enemies are killed.
-4) Reset player status (e.g., from Super Mushroom and Power Star)
-5) Heal player to maximum
-6) Remove all coins on the ground (Super Mushrooms and Power Stars may stay).
