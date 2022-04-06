@@ -4,7 +4,7 @@ Author Date: 6/4/2022
 
 Group Members Signature:
 1) How Yu Chern - I accept this WBA
-2) Eugene Kah Chun Fan -
+2) Eugene Kah Chun Fan - I accept this WBA
 
 Task Breakdown and Summary:
 - Each person in charge of a requirement (REQ) will be in charge of it's respective UML Diagram and
