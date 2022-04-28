@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.items.MagicalItem;
+import game.items.PowerStar;
 
 public class ConsumeAction extends Action {
     private MagicalItem magicalItem;

@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.weapons.Weapon;
+import game.Status;
 
 /**
  * Special Action for attacking other Actors.
@@ -49,25 +50,44 @@ public class AttackAction extends Action {
 		}
 
 		int damage = weapon.damage();
-		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
-		target.hurt(damage);
-		if (!target.isConscious()) {
-			ActionList dropActions = new ActionList();
+		if (target.hasCapability(Status.INVINCIBLE)){
+			damage = 0;
+		}
+		String result = "";
+		if (!actor.hasCapability(Status.INVINCIBLE)){
+			result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
+			target.hurt(damage);
+			if (!target.isConscious()) {
+				ActionList dropActions = new ActionList();
+				// drop all items
+				for (Item item : target.getInventory())
+					dropActions.add(item.getDropAction(actor));
+				for (Action drop : dropActions)
+					drop.execute(target, map);
+				// remove actor
+				map.removeActor(target);
+				result += System.lineSeparator() + target + " is killed.";
+			}
+		}
+		else if (actor.hasCapability(Status.INVINCIBLE)){
 			// drop all items
+			ActionList dropActions = new ActionList();
 			for (Item item : target.getInventory())
 				dropActions.add(item.getDropAction(actor));
 			for (Action drop : dropActions)
 				drop.execute(target, map);
-			// remove actor
 			map.removeActor(target);
-			result += System.lineSeparator() + target + " is killed.";
+			result += actor + " insta-killed " + target;
 		}
-
 		return result;
 	}
 
 	@Override
 	public String menuDescription(Actor actor) {
-		return actor + " attacks " + target + " at " + direction;
+		String ret = actor + " attacks " + target + " at " + direction;
+		if (target.hasCapability(Status.DORMANT)){
+			ret = actor + " destroys " + target + "(dormant) at " + direction;
+		}
+		return ret;
 	}
 }

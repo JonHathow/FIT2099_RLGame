@@ -9,8 +9,10 @@ import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
+import game.behaviours.AttackBehaviour;
 import game.behaviours.Behaviour;
 import game.Status;
+import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
 
 import java.util.HashMap;
@@ -18,7 +20,7 @@ import java.util.Map;
 /**
  * A little fungus guy.
  */
-public class Goomba extends Actor {
+public class Goomba extends Npc {
 	private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
 	/**
@@ -27,7 +29,7 @@ public class Goomba extends Actor {
 	public Goomba() {
 		super("Goomba", 'g', 20);
 		this.behaviours.put(10, new WanderBehaviour());
-		this.addCapability(Status.HOSTILE_TO_ENEMY);
+//		this.addCapability(Status.HOSTILE_TO_ENEMY);
 	}
 
 	@Override
@@ -47,12 +49,12 @@ public class Goomba extends Actor {
 	@Override
 	public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
 		ActionList actions = new ActionList();
+		this.behaviours.put(1, new AttackBehaviour(otherActor,direction));
+		this.behaviours.put(2, new FollowBehaviour(otherActor));
 		// it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
 		if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
 			actions.add(new AttackAction(this,direction));
 		}
-//		this.behaviours.put(0, new AttackBehaviour(otherActor,direction));
-//		this.behaviours.put(1, new FollowBehaviour(otherActor));
 		return actions;
 	}
 

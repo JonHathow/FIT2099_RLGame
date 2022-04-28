@@ -7,17 +7,21 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
+import game.behaviours.AttackBehaviour;
 import game.behaviours.Behaviour;
 import game.Status;
+import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
+import game.items.SuperMushroom;
 
 import java.util.HashMap;
 import java.util.Map;
 /**
  * A little fungus guy.
  */
-public class Koopa extends Actor {
+public class Koopa extends Npc {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
     private Actor otherActor;
     /**
@@ -26,10 +30,14 @@ public class Koopa extends Actor {
     public Koopa() {
         super("Koopa", 'K', 100);
         this.behaviours.put(10, new WanderBehaviour());
-        this.addCapability(Status.HOSTILE_TO_ENEMY);
-
+//        this.addCapability(Status.HOSTILE_TO_ENEMY);
+        this.addItemToInventory(new SuperMushroom());
     }
 
+    @Override
+    protected IntrinsicWeapon getIntrinsicWeapon() {
+        return new IntrinsicWeapon(30, "punches");
+    }
 
     /**
      * At the moment, we only make it can be attacked by Player.
@@ -42,9 +50,16 @@ public class Koopa extends Actor {
      */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
+        this.otherActor = otherActor;
         ActionList actions = new ActionList();
+
         // it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
-        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+        if(!this.hasCapability(Status.DORMANT) && otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+            this.behaviours.put(1, new AttackBehaviour(otherActor,direction));
+            this.behaviours.put(2, new FollowBehaviour(otherActor));
+            actions.add(new AttackAction(this,direction));
+        }
+        else if (this.hasCapability(Status.DORMANT) && otherActor.hasCapability(Status.HOSTILE_TO_ENEMY) && otherActor.hasCapability(Status.DESTROY_SHELL)){
             actions.add(new AttackAction(this,direction));
         }
         return actions;
@@ -66,7 +81,7 @@ public class Koopa extends Actor {
             this.setDisplayChar('D');
             this.behaviours.clear();
         }
-        else if (!super.isConscious() && this.hasCapability(Status.DORMANT) && otherActor.hasCapability(Status.DESTROY_SHELL)){
+        else if (this.hasCapability(Status.DORMANT) && otherActor.hasCapability(Status.DESTROY_SHELL)){
             ret = super.isConscious();
         }
         return ret;

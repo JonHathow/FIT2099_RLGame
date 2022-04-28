@@ -6,7 +6,7 @@ import game.Status;
 public class Wrench extends WeaponItem {
 
     public Wrench() {
-        super("Wrench", 'w', 50, "batter", 80);
+        super("Wrench", 'w', 50, "batters", 80);
         this.addCapability(Status.DESTROY_SHELL);
     }
 

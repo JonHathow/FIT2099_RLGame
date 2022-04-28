@@ -15,7 +15,5 @@ public abstract class MagicalItem extends Item {
         super(name, displayChar, portable);
     }
 
-    public void consume(Actor actor){
-
-    }
+    public abstract void consume(Actor actor);
 }

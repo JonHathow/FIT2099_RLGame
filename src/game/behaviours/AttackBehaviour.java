@@ -2,12 +2,16 @@ package game.behaviours;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
-import edu.monash.fit2099.engine.weapons.Weapon;
+import edu.monash.fit2099.engine.positions.Location;
+import edu.monash.fit2099.engine.positions.NumberRange;
+import game.actions.AttackAction;
 
+import java.util.ArrayList;
 import java.util.Random;
 
-public class AttackBehaviour extends Action implements Behaviour {
+public class AttackBehaviour implements Behaviour {
 
     // TODO: develop and use it to attack the player automatically.
     /**
@@ -34,31 +38,15 @@ public class AttackBehaviour extends Action implements Behaviour {
     @Override
     public Action getAction(Actor actor, GameMap map) {
 
-        boolean canAttack= true;
-        Weapon weapon = actor.getWeapon();
+        for (Exit exit : map.locationOf(actor).getExits()) {
+            Location destination = exit.getDestination();
+            if (destination.containsAnActor()){
+                if (destination.getActor().equals(this.target)){
+                    return new AttackAction(this.target,this.direction);
+                }
 
-        if (!(rand.nextInt(100) <= weapon.chanceToHit())) {
-            canAttack = false;
+            }
         }
-        if (canAttack) {
-            int damage = weapon.damage();
-            System.out.println(actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.");
-            target.hurt(damage);
-            return this;
-        }
-        else{
-            return null;
-        }
-
-    }
-
-    @Override
-    public String execute(Actor actor, GameMap map) {
-        return null;
-    }
-
-    @Override
-    public String menuDescription(Actor actor) {
         return null;
     }
 }
