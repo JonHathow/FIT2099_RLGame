@@ -1,9 +1,8 @@
 package game.grounds;
 
-import edu.monash.fit2099.demo.mars.DemoCapabilities;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
-import game.Status;
+import game.actors.Enemy;
 
 /**
  * A class that represents the floor inside a building.
@@ -15,6 +14,6 @@ public class Floor extends Ground {
 
 	@Override
 	public boolean canActorEnter(Actor actor) {
-		return actor.hasCapability(Status.HOSTILE_TO_ENEMY);
+		return !(actor instanceof Enemy);
 	}
 }

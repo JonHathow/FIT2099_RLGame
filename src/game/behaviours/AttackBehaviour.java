@@ -5,10 +5,8 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import edu.monash.fit2099.engine.positions.NumberRange;
 import game.actions.AttackAction;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class AttackBehaviour implements Behaviour {

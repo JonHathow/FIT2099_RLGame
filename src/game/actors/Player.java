@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import game.Status;
 import game.items.Coin;
+import game.items.TradeCapable;
 
 /**
  * Class representing the Player.
@@ -38,12 +39,6 @@ public class Player extends Actor  {
 	public void addItemToInventory(Item item) {
 		item.togglePortability();
 		super.addItemToInventory(item);
-//		if ((item.getDisplayChar()=='$')){
-//			this.updateWallet(item.getValue());
-//		}
-//		else {
-//			super.addItemToInventory(item);
-//		}
 	}
 
 	public int getWallet() {

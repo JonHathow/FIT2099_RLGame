@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * A little fungus guy.
  */
-public class Koopa extends Npc {
+public class Koopa extends Enemy {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
     private Actor otherActor;
     /**
@@ -54,7 +54,7 @@ public class Koopa extends Npc {
         ActionList actions = new ActionList();
 
         // it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
-        if(!this.hasCapability(Status.DORMANT) && otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+        if((!this.hasCapability(Status.DORMANT) && otherActor.hasCapability(Status.HOSTILE_TO_ENEMY) || otherActor.hasCapability(Status.INVINCIBLE))) {
             this.behaviours.put(1, new AttackBehaviour(otherActor,direction));
             this.behaviours.put(2, new FollowBehaviour(otherActor));
             actions.add(new AttackAction(this,direction));
