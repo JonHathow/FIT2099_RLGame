@@ -4,9 +4,9 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actors.Enemy;
+import game.resets.Resettable;
 
-public abstract class Tree extends Ground {
-
+public abstract class Tree extends Ground implements Jumpable, Resettable {
     /**
      * Constructor.
      *

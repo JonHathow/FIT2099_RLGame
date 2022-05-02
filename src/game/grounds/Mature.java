@@ -1,21 +1,32 @@
 package game.grounds;
 
+import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
+import game.actions.JumpAction;
 import game.actors.Goomba;
 import game.actors.Koopa;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * The Mature class represents a Mature, which is the third and final stage of growth for a tree.
+ * This class manages the attributes and behaviours of a mature.
+ *
+ * @author How Yu Chern
+ * @version 1.0.0
+ */
 public class Mature extends Tree {
-
+    private int successRate;
+    private int fallDamage;
     /**
      * The tick counter, to keep track of the number of ticks (how much time has passed).
      */
     int counter;
+    private boolean resetDone = false;
 
     /**
      * Constructor for Sprout.
@@ -24,6 +35,9 @@ public class Mature extends Tree {
     public Mature() {
         super('T');
         counter = 0;
+        setFallDamage(30);
+        setSuccessRate(70);
+        this.registerInstance();
     }
 
     /**
@@ -45,9 +59,12 @@ public class Mature extends Tree {
         if (counter % 5 == 0){
             spawnSprout(location);
         }
-
+        double chance = 0.2;
+        if (resetDone){
+            chance = 0.5;
+        }
         //Has a 20% chance of withering into dirt each turn.
-        if (Math.random() <= 0.2){
+        if (Math.random() <= chance ){
             location.setGround(new Dirt());
         }
     }
@@ -74,5 +91,42 @@ public class Mature extends Tree {
         if (fertileNeighbours.size() > 0){
             fertileNeighbours.get(rand.nextInt(fertileNeighbours.size())).getDestination().setGround(new Sprout());
         }
+    }
+
+    @Override
+    public ActionList allowableActions(Actor actor, Location location, String direction) {
+        ActionList actions = new ActionList();
+        actions.add(new JumpAction(actor,location,direction,this));
+        return actions;
+    }
+
+    @Override
+    public void setFallDamage(int fallDamage) {
+        this.fallDamage = fallDamage;
+    }
+
+    @Override
+    public void setSuccessRate(int successRate) {
+        this.successRate = successRate;
+    }
+
+    @Override
+    public int getSuccessRate() {
+        return successRate;
+    }
+
+    @Override
+    public int getFallDamage() {
+        return fallDamage;
+    }
+
+    @Override
+    public boolean canActorEnter(Actor actor) {
+        return super.canActorEnter(actor);
+    }
+
+    @Override
+    public void resetInstance() {
+        resetDone = true;
     }
 }
