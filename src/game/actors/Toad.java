@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Toad extends Actor{
-    private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
     public Toad() {
         super("Toad", 'O', 99999);
@@ -31,7 +30,6 @@ public class Toad extends Actor{
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
-        // it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
         actions.add(new TradeAction(this,direction, new SuperMushroom()));
         actions.add(new TradeAction(this,direction, new PowerStar()));
         actions.add(new TradeAction(this,direction, new Wrench()));
