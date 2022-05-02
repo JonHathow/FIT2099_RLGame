@@ -9,15 +9,16 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import game.Status;
 import game.items.Coin;
+import game.items.ConsumeCapable;
 import game.items.TradeCapable;
 
 /**
  * Class representing the Player.
  */
-public class Player extends Actor  {
+public class Player extends Actor implements WalletCapable  {
 
 	private final Menu menu = new Menu();
-	private int wallet;
+//	private int wallet;
 	/**
 	 * Constructor.
 	 *
@@ -28,22 +29,24 @@ public class Player extends Actor  {
 	public Player(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints);
 		this.addCapability(Status.HOSTILE_TO_ENEMY);
-		this.wallet = 0;
+//		this.wallet = 0;
 	}
 
-	public void updateWallet(int val){
-		this.wallet += val;
-	}
+//	public void updateWallet(int val){
+//		this.wallet += val;
+//	}
 
 	@Override
 	public void addItemToInventory(Item item) {
-		item.togglePortability();
+		if (item instanceof ConsumeCapable){
+			item.togglePortability();
+		}
 		super.addItemToInventory(item);
 	}
 
-	public int getWallet() {
-		return wallet;
-	}
+//	public int getWallet() {
+//		return wallet;
+//	}
 
 	@Override
 	public void hurt(int points) {

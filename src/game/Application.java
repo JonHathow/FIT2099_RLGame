@@ -63,9 +63,9 @@ public class Application {
 
 			Actor mario = new Player("Mario", 'm', 600);
 			mario.addItemToInventory(new Wrench());
-			world.addPlayer(mario, gameMap.at(33, 13));
+			world.addPlayer(mario, gameMap.at(44, 10));
 			gameMap.at(43, 10).addActor(new Toad());
-			gameMap.at(45, 11).addItem(new Coin(1000));
+			gameMap.at(44, 11).addItem(new Coin(1000));
 //			gameMap.at(36, 11).addItem(new SuperMushroom());
 //			gameMap.at(36, 10).addItem(new PowerStar());
 			// FIXME: the Goomba should be generated from the Tree

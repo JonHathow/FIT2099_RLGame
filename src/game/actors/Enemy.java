@@ -18,9 +18,6 @@ public abstract class Enemy extends Actor {
         super(name, displayChar, hitPoints);
     }
 
-    public String printingHp(){
-        return super.printHp();
-    }
     @Override
     public abstract Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display);
     @Override
