@@ -15,6 +15,7 @@ import game.Status;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
 
+
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -22,13 +23,14 @@ import java.util.Map;
  */
 public class Goomba extends Enemy {
 	private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
-
+	private boolean resetDone = false;
 	/**
 	 * Constructor.
 	 */
 	public Goomba() {
 		super("Goomba", 'g', 20);
 		this.behaviours.put(10, new WanderBehaviour());
+		this.registerInstance();
 //		this.addCapability(Status.HOSTILE_TO_ENEMY);
 	}
 
@@ -37,6 +39,10 @@ public class Goomba extends Enemy {
 		return new IntrinsicWeapon(10, "kicks");
 	}
 
+	@Override
+	public void resetInstance() {
+		resetDone = true;
+	}
 	/**
 	 * At the moment, we only make it can be attacked by Player.
 	 * You can do something else with this method.
@@ -65,7 +71,7 @@ public class Goomba extends Enemy {
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
 		//suicidal
-		if(Math.random() <= 0.1){
+		if(Math.random() <= 0.1 || resetDone == true){
 			map.removeActor(this);
 			return new DoNothingAction();
 		}

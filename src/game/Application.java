@@ -63,7 +63,7 @@ public class Application {
 
 			Actor mario = new Player("Mario", 'm', 600);
 			mario.addItemToInventory(new Wrench());
-			world.addPlayer(mario, gameMap.at(44, 10));
+			world.addPlayer(mario, gameMap.at(33, 11));
 			gameMap.at(43, 10).addActor(new Toad());
 			gameMap.at(44, 11).addItem(new Coin(1000));
 //			gameMap.at(36, 11).addItem(new SuperMushroom());
@@ -72,7 +72,7 @@ public class Application {
 //			mario.addItemToInventory(new PowerStar());
 //			mario.addItemToInventory(new SuperMushroom());
 			gameMap.at(33, 12).addActor(new Goomba());
-//			gameMap.at(33, 11).addActor(new Koopa());
+			gameMap.at(33, 13).addActor(new Koopa());
 			world.run();
 
 	}
