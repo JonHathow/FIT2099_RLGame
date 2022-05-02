@@ -24,6 +24,8 @@ import java.util.Map;
 public class Koopa extends Enemy {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
     private Actor otherActor;
+
+    private boolean resetDone = false;
     /**
      * Constructor.
      */
@@ -32,11 +34,18 @@ public class Koopa extends Enemy {
         this.behaviours.put(10, new WanderBehaviour());
 //        this.addCapability(Status.HOSTILE_TO_ENEMY);
         this.addItemToInventory(new SuperMushroom());
+        this.registerInstance();
     }
 
     @Override
     protected IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(30, "punches");
+    }
+
+
+    @Override
+    public void resetInstance() {
+        resetDone = true;
     }
 
     /**
@@ -93,6 +102,10 @@ public class Koopa extends Enemy {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        if(resetDone == true){
+            map.removeActor(this);
+            return new DoNothingAction();
+        }
         for(Behaviour behaviour : behaviours.values()) {
             Action action = behaviour.getAction(this, map);
             if (action != null)
@@ -100,5 +113,6 @@ public class Koopa extends Enemy {
         }
         return new DoNothingAction();
     }
+
 
 }

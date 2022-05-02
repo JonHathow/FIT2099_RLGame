@@ -8,16 +8,23 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import game.Status;
+import game.actions.ResetAction;
 import game.items.Coin;
 import game.items.ConsumeCapable;
 import game.items.TradeCapable;
+import game.resets.ResetManager;
+import game.resets.Resettable;
 
 /**
  * Class representing the Player.
  */
-public class Player extends Actor implements WalletCapable  {
+public class Player extends Actor implements WalletCapable, Resettable {
 
 	private final Menu menu = new Menu();
+
+	private boolean resetDone = false;
+	private boolean resetAdded = false;
+
 //	private int wallet;
 	/**
 	 * Constructor.
@@ -29,6 +36,7 @@ public class Player extends Actor implements WalletCapable  {
 	public Player(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints);
 		this.addCapability(Status.HOSTILE_TO_ENEMY);
+		this.registerInstance();
 //		this.wallet = 0;
 	}
 
@@ -57,8 +65,23 @@ public class Player extends Actor implements WalletCapable  {
 			}
 		}
 	}
+
+	@Override
+	public void resetInstance() {
+		//Removing all capabilities
+		for (Enum capability:this.capabilitiesList()){
+			if (!(capability == Status.HOSTILE_TO_ENEMY)){
+				this.removeCapability(capability);
+			}
+		}
+		this.heal(this.getMaxHp());
+		resetDone = true;
+	}
+
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+		ResetAction resetAction = new ResetAction();
+
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
@@ -70,7 +93,18 @@ public class Player extends Actor implements WalletCapable  {
 		if (this.hasCapability(Status.INVINCIBLE)){
 			printing += "\nMARIO IS INVINCIBLE!";
 		}
+
+		//Resetting option
+		if (resetDone == false) {
+			actions.add(resetAction);
+			resetAdded = true;
+		}
+		else if (resetDone == true && resetAdded == true){
+			actions.remove(resetAction);
+		}
+
 		System.out.println(printing);
+
 		return menu.showMenu(this, actions, display);
 	}
 
@@ -78,6 +112,7 @@ public class Player extends Actor implements WalletCapable  {
 	public char getDisplayChar(){
 		return this.hasCapability(Status.TALL) ? Character.toUpperCase(super.getDisplayChar()): super.getDisplayChar();
 	}
+
 
 
 }
