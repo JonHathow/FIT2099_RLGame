@@ -9,23 +9,32 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import game.Status;
 import game.actions.ResetAction;
-import game.items.Coin;
 import game.items.ConsumeCapable;
-import game.items.TradeCapable;
-import game.resets.ResetManager;
 import game.resets.Resettable;
 
 /**
- * Class representing the Player.
+ * Class representing the Player. Contains all the necessary methods and attributes for Player
+ * to work in a game.
+ * @author Eugene Fan Kah Chun
+ * @version 5.0
  */
 public class Player extends Actor implements WalletCapable, Resettable {
 
+	/**
+	 * A Menu instance
+	 */
 	private final Menu menu = new Menu();
 
+	/**
+	 * A boolean flag to denote whether the reset has been called
+	 */
 	private boolean resetDone = false;
+
+	/**
+	 * A boolean flag to denote whether the reset action has been added
+	 */
 	private boolean resetAdded = false;
 
-//	private int wallet;
 	/**
 	 * Constructor.
 	 *
@@ -35,37 +44,48 @@ public class Player extends Actor implements WalletCapable, Resettable {
 	 */
 	public Player(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints);
+
+		//add HOSTILE_TO_ENEMY capability
 		this.addCapability(Status.HOSTILE_TO_ENEMY);
+
+		//register the reset instance into ResetManager
 		this.registerInstance();
-//		this.wallet = 0;
 	}
 
-//	public void updateWallet(int val){
-//		this.wallet += val;
-//	}
-
+	/**
+	 *
+	 * @param item The Item to add.
+	 */
 	@Override
 	public void addItemToInventory(Item item) {
+		// if item can be consumed
 		if (item instanceof ConsumeCapable){
+			//change the portability so that Consumable Items added to inventory cannot be dropped
 			item.togglePortability();
 		}
 		super.addItemToInventory(item);
 	}
 
-//	public int getWallet() {
-//		return wallet;
-//	}
-
+	/**
+	 *
+	 * @param points number of hitpoints to deduct.
+	 */
 	@Override
 	public void hurt(int points) {
+		//if Player is not invincible
 		if (!this.hasCapability(Status.INVINCIBLE)){
+			//get hurt
 			super.hurt(points);
+			//if Player was tall, remove capability
 			if (this.hasCapability(Status.TALL)){
 				this.removeCapability(Status.TALL);
 			}
 		}
 	}
 
+	/**
+	 * Sets what happens when reset is called by ResetManager
+	 */
 	@Override
 	public void resetInstance() {
 		//Removing all capabilities
@@ -74,10 +94,19 @@ public class Player extends Actor implements WalletCapable, Resettable {
 				this.removeCapability(capability);
 			}
 		}
+		//heal up to max health
 		this.heal(this.getMaxHp());
 		resetDone = true;
 	}
 
+	/**
+	 *
+	 * @param actions    collection of possible Actions for this Actor
+	 * @param lastAction The Action this Actor took last turn. Can do interesting things in conjunction with Action.getNextAction()
+	 * @param map        the map containing the Actor
+	 * @param display    the I/O object to which messages may be written
+	 *
+	 */
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
 		ResetAction resetAction = new ResetAction();
@@ -85,15 +114,22 @@ public class Player extends Actor implements WalletCapable, Resettable {
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
-		// return/print the console menu
+
+		//return/print the console menu
 		String printing = "";
+
+		//gets the health of current actor
 		printing += this.name + this.printHp();
+
+		//gets the coordinates of current actor
 		printing += " at (" + map.locationOf(this).x() + ", " + map.locationOf(this).y() + ")";
+
+		//gets the Wallet value of current actor
 		printing += "\nwallet: $" + getWallet();
+
 		if (this.hasCapability(Status.INVINCIBLE)){
 			printing += "\nMARIO IS INVINCIBLE!";
 		}
-
 		//Resetting option
 		if (resetDone == false) {
 			actions.add(resetAction);
@@ -104,15 +140,17 @@ public class Player extends Actor implements WalletCapable, Resettable {
 		}
 
 		System.out.println(printing);
-
 		return menu.showMenu(this, actions, display);
 	}
 
+	/**
+	 * Returns the character used to depict actor in console
+	 * @return char
+	 */
 	@Override
 	public char getDisplayChar(){
+		//if Player is tall, return 'M'; else return 'm'
 		return this.hasCapability(Status.TALL) ? Character.toUpperCase(super.getDisplayChar()): super.getDisplayChar();
 	}
-
-
 
 }

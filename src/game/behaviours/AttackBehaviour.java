@@ -7,11 +7,14 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.AttackAction;
 
-import java.util.Random;
-
+/**
+ * AttackBehaviour is a class used by Npc. AttackBehaviour is to Npc what AttackAction is to Player. It allows
+ * Npc to attack
+ * @author Eugene Fan Kah Chun
+ * @version 2.0
+ */
 public class AttackBehaviour implements Behaviour {
 
-    // TODO: develop and use it to attack the player automatically.
     /**
      * The Actor that is to be attacked
      */
@@ -23,23 +26,32 @@ public class AttackBehaviour implements Behaviour {
     protected String direction;
 
     /**
-     * Random number generator
+     * Constructor
+     * @param target
+     * @param direction
      */
-    protected Random rand = new Random();
-
     public AttackBehaviour(Actor target, String direction) {
         this.target = target;
         this.direction = direction;
 
     }
 
+    /**
+     *
+     * @param actor the Actor acting
+     * @param map the GameMap containing the Actor
+     * @return
+     */
     @Override
     public Action getAction(Actor actor, GameMap map) {
-
+        //loops through all the exits
         for (Exit exit : map.locationOf(actor).getExits()) {
             Location destination = exit.getDestination();
+            //if it contains and actor
             if (destination.containsAnActor()){
+                //and if actor is equal to target
                 if (destination.getActor().equals(this.target)){
+                    //create an attack action towards that target
                     return new AttackAction(this.target,this.direction);
                 }
 
