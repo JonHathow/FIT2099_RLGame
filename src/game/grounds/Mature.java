@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The Mature class represents a Mature, which is the third and final stage of growth for a tree.
+ * This class manages the attributes and behaviours of a mature.
+ *
+ * @author How Yu Chern
+ * @version 1.0.0
+ */
 public class Mature extends Tree {
 
     /**

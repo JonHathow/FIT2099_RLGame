@@ -6,6 +6,10 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.actors.Enemy;
 
 public abstract class Tree extends Ground {
+    /**
+     * The tick counter, to keep track of the number of ticks (how much time has passed).
+     */
+    int counter;
 
     /**
      * Constructor.
@@ -13,6 +17,7 @@ public abstract class Tree extends Ground {
      */
     public Tree(Character displayChar) {
         super(displayChar);
+        counter = 0;
     }
 
     /**

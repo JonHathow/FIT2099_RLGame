@@ -11,5 +11,4 @@ public enum Status {
     DORMANT,
     INVINCIBLE,
     FERTILE, //Ground capability for new trees (sprouts) to spawn on it.
-
 }

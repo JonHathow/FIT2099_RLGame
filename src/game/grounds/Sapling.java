@@ -4,6 +4,13 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.actors.Goomba;
 import game.items.Coin;
 
+/**
+ * The Sapling class represents a Mature, which is the second stage of growth for a tree.
+ * This class manages the attributes and behaviours of a sappling.
+ *
+ * @author How Yu Chern
+ * @version 1.0.0
+ */
 public class Sapling extends Tree {
 
     /**

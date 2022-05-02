@@ -3,6 +3,13 @@ package game.grounds;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actors.Goomba;
 
+/**
+ * The Sprout class represents a Sprout, which is the first stage of growth for a tree.
+ * This class manages the attributes and behaviours of a sprout.
+ *
+ * @author How Yu Chern
+ * @version 1.0.0
+ */
 public class Sprout extends Tree {
 
     /**
