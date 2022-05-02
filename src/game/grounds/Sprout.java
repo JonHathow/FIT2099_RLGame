@@ -30,7 +30,7 @@ public class Sprout extends Tree {
         counter += 1;
 
         //10% chance to Spawn Goomba if there are no other actors standing on it.
-        if (Math.random() <= 0.1 && location.containsAnActor()){
+        if (Math.random() <= 0.1 && !(location.containsAnActor())){
             location.addActor(new Goomba());
         }
 

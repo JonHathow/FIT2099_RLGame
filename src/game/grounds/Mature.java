@@ -6,7 +6,9 @@ import game.Status;
 import game.actors.Goomba;
 import game.actors.Koopa;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Mature extends Tree {
 
@@ -35,27 +37,42 @@ public class Mature extends Tree {
         counter += 1;
 
         //15% chance to Spawn Koopa if there are no other actors standing on it.
-        if (Math.random() <= 0.1 && location.containsAnActor()){
+        if (Math.random() <= 0.15 && !(location.containsAnActor())){
             location.addActor(new Koopa());
         }
 
         //Grow a new sprout in one of it's fertile surrounding every 5 turns
         if (counter % 5 == 0){
-            //Get the neighbouring grounds of the Mature
-            List<Exit> neighbours = location.getExits();
-
-            //Find a ground which is fertile (dirt) which a new sprout can grow on
-            for (Exit neighbour:neighbours){
-                if(neighbour.getDestination().getGround().hasCapability(Status.FERTILE)){
-                    //Once a fertile ground is found, grow a new sprout on it.
-                    neighbour.getDestination().setGround(new Sprout());
-                }
-            }
+            spawnSprout(location);
         }
 
         //Has a 20% chance of withering into dirt each turn.
         if (Math.random() <= 0.2){
             location.setGround(new Dirt());
+        }
+    }
+
+    /**
+     * Method which spawns a Sprout randomly in a fertile location adjacent to a Mature.
+     * @param location The location of the Mature.
+     */
+    public void spawnSprout(Location location){
+        //Get the neighbouring grounds of the Mature
+        Random rand = new Random();
+        List<Exit> neighbours = location.getExits();
+        List<Exit> fertileNeighbours = new ArrayList();
+
+        //Identify all grounds which are fertile and remember them.
+        for (Exit neighbour:neighbours){
+            if(neighbour.getDestination().getGround().hasCapability(Status.FERTILE)){
+                fertileNeighbours.add(neighbour);
+            }
+        }
+
+        //Pick a random fertile neighbour ground to grow a new sprout on it.
+        //If there are no fertile grounds, do nothing.
+        if (fertileNeighbours.size() > 0){
+            fertileNeighbours.get(rand.nextInt(fertileNeighbours.size())).getDestination().setGround(new Sprout());
         }
     }
 }
