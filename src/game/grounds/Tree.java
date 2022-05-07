@@ -4,20 +4,15 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actors.Enemy;
+import game.resets.Resettable;
 
-public abstract class Tree extends Ground {
-    /**
-     * The tick counter, to keep track of the number of ticks (how much time has passed).
-     */
-    int counter;
-
+public abstract class Tree extends Ground implements Jumpable, Resettable {
     /**
      * Constructor.
      *
      */
     public Tree(Character displayChar) {
         super(displayChar);
-        counter = 0;
     }
 
     /**

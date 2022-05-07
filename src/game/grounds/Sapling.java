@@ -11,12 +11,15 @@ import game.items.Coin;
  * @author How Yu Chern
  * @version 1.0.0
  */
-public class Sapling extends Tree {
+public class Sapling extends Tree implements Jumpable{
 
+    private int successRate;
+    private int fallDamage;
     /**
      * The tick counter, to keep track of the number of ticks (how much time has passed).
      */
     int counter;
+    private boolean resetDone = false;
 
     /**
      * Constructor for Sprout.
@@ -25,6 +28,9 @@ public class Sapling extends Tree {
     public Sapling() {
         super('t');
         counter = 0;
+        setFallDamage(20);
+        setSuccessRate(80);
+        this.registerInstance();
     }
 
     /**
@@ -37,6 +43,12 @@ public class Sapling extends Tree {
         super.tick(location);
         counter += 1;
 
+        if (resetDone){
+            if (Math.random() <= 0.5){
+                location.setGround(new Dirt());
+            }
+        }
+
         //10% chance to Spawn Coins
         if (Math.random() <= 0.1){
             location.addItem(new Coin(20));
@@ -46,5 +58,31 @@ public class Sapling extends Tree {
         if (counter == 10){
             location.setGround(new Mature());
         }
+
+    }
+
+    @Override
+    public void setFallDamage(int fallDamage) {
+        this.fallDamage = fallDamage;
+    }
+
+    @Override
+    public void setSuccessRate(int successRate) {
+        this.successRate = successRate;
+    }
+
+    @Override
+    public int getSuccessRate() {
+        return successRate;
+    }
+
+    @Override
+    public int getFallDamage() {
+        return fallDamage;
+    }
+
+    @Override
+    public void resetInstance() {
+        resetDone = true;
     }
 }
