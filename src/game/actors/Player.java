@@ -7,8 +7,10 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
+import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.Status;
 import game.actions.ResetAction;
+import game.items.Bottle;
 import game.items.ConsumeCapable;
 import game.resets.Resettable;
 
@@ -35,6 +37,8 @@ public class Player extends Actor implements WalletCapable, Resettable {
 	 */
 	private boolean resetAdded = false;
 
+	private int intrinsicBooster = 0;
+
 	/**
 	 * Constructor.
 	 *
@@ -50,8 +54,8 @@ public class Player extends Actor implements WalletCapable, Resettable {
 
 		//register the reset instance into ResetManager
 		this.registerInstance();
-	}
 
+	}
 	/**
 	 *
 	 * @param item The Item to add.
@@ -64,6 +68,15 @@ public class Player extends Actor implements WalletCapable, Resettable {
 			item.togglePortability();
 		}
 		super.addItemToInventory(item);
+	}
+
+	@Override
+	protected IntrinsicWeapon getIntrinsicWeapon() {
+		if (this.hasCapability(Status.POWER_UP)){
+			this.intrinsicBooster += 15;
+			this.removeCapability(Status.POWER_UP);
+		}
+		return new IntrinsicWeapon(super.getIntrinsicWeapon().damage()+this.intrinsicBooster,super.getIntrinsicWeapon().verb());
 	}
 
 	/**

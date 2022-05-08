@@ -8,6 +8,7 @@ import game.Status;
 import game.actions.JumpAction;
 import game.actors.Goomba;
 import game.actors.Koopa;
+import game.items.Coin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,11 @@ public class Mature extends Tree {
     public void tick(Location location) {
         super.tick(location);
         counter += 1;
+
+        if (location.containsAnActor() && location.getActor().hasCapability(Status.INVINCIBLE)){
+            location.setGround(new Dirt());
+            location.addItem(new Coin(5));
+        }
 
         //15% chance to Spawn Koopa if there are no other actors standing on it.
         if (Math.random() <= 0.15 && !(location.containsAnActor())){
@@ -96,10 +102,11 @@ public class Mature extends Tree {
     @Override
     public ActionList allowableActions(Actor actor, Location location, String direction) {
         ActionList actions = new ActionList();
-        actions.add(new JumpAction(actor,location,direction,this));
+        if (location.getActor() != actor && !actor.hasCapability(Status.INVINCIBLE)){
+            actions.add(new JumpAction(actor,location,direction,this));
+        }
         return actions;
     }
-
     @Override
     public void setFallDamage(int fallDamage) {
         this.fallDamage = fallDamage;
@@ -120,13 +127,15 @@ public class Mature extends Tree {
         return fallDamage;
     }
 
-    @Override
-    public boolean canActorEnter(Actor actor) {
-        return super.canActorEnter(actor);
-    }
+
 
     @Override
     public void resetInstance() {
         resetDone = true;
+    }
+
+    @Override
+    public String toString() {
+        return "Mature";
     }
 }

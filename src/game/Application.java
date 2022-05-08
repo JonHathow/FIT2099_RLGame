@@ -4,30 +4,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import edu.monash.fit2099.demo.mars.DemoCapabilities;
-import edu.monash.fit2099.demo.mars.items.MartianItem;
+
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.items.DropItemAction;
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.NumberRange;
 import edu.monash.fit2099.engine.positions.World;
-import game.actors.Goomba;
-import game.actors.Koopa;
-import game.actors.Player;
-import game.actors.Toad;
-import game.grounds.Dirt;
-import game.grounds.Floor;
-import game.grounds.Sprout;
-import game.grounds.Sapling;
-import game.grounds.Mature;
-import game.grounds.Wall;
-import game.items.Coin;
-import game.items.PowerStar;
-import game.items.SuperMushroom;
-import game.items.Wrench;
+import game.actors.*;
+import game.grounds.*;
+import game.items.Bottle;
+
 
 /**
  * The main class for the Mario World game.
@@ -78,19 +65,26 @@ public class Application {
 
 			//Adding Player to the world.
 			Actor mario = new Player("Mario", 'm', 600);
-			mario.addItemToInventory(new Wrench());
-			world.addPlayer(mario, gameMap.at(33, 11));
-			gameMap.at(43, 10).addActor(new Toad());
-			gameMap.at(44, 11).addItem(new Coin(1000));
+//			mario.addItemToInventory(new Wrench());
+//			mario.addItemToInventory(new PowerStar());
+			world.addPlayer(mario, gameMap.at(23, 12));
+			mario.addItemToInventory(new Bottle());
+//			gameMap.at(22, 12).addActor(new PiranhaPlant());
+//			gameMap.at(23, 11).addItem(new Fire());
+			gameMap.at(22, 12).setGround(new HealthFountain());
+//			gameMap.at(21, 12).addActor(new PrincessPeach());
+//			gameMap.at(22, 12).addActor(new Bowser());
+//			gameMap.at(22, 12).setGround(new HealthFountain());
+//			gameMap.at(43, 10).addActor(new Toad());
+//			gameMap.at(44, 11).addItem(new Coin(1000));
 //			gameMap.at(36, 11).addItem(new SuperMushroom());
 //			gameMap.at(36, 10).addItem(new PowerStar());
-			// FIXME: the Goomba should be generated from the Tree
+
 //			mario.addItemToInventory(new PowerStar());
 //			mario.addItemToInventory(new SuperMushroom());
-			gameMap.at(33, 12).addActor(new Goomba());
-			gameMap.at(33, 13).addActor(new Koopa());
+//			gameMap.at(33, 12).addActor(new Goomba());
+//			gameMap.at(33, 13).addActor(new Koopa());
 			world.run();
-
 	}
 
 	/**

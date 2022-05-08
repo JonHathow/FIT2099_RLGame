@@ -37,16 +37,15 @@ public class JumpAction extends Action {
     public String execute(Actor actor, GameMap map) {
         if (actor.hasCapability(Status.TALL) || (rand.nextInt(100) <= ground.getSuccessRate())){
             //no fall damage
-            ((Wall) ground).setJumpAttempt(this.location,this.direction,true);
+            MoveActorAction moveActorAction = new MoveActorAction(location, direction);
+            moveActorAction.execute(actor,map);
             return menuDescription(actor);
-//            new MoveActorAction(location, direction);
+
         }
-        else if (!(rand.nextInt(100) <= ground.getSuccessRate())){
+        else{
             actor.hurt(ground.getFallDamage());
-            ((Wall) ground).setJumpAttempt(this.location,this.direction,false);
             return actor + " fell and got hurt!";
         }
-        return null;
     }
 
     @Override

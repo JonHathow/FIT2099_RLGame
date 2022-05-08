@@ -9,11 +9,9 @@ import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
-import game.behaviours.AttackBehaviour;
-import game.behaviours.Behaviour;
+import game.behaviours.*;
 import game.Status;
-import game.behaviours.FollowBehaviour;
-import game.behaviours.WanderBehaviour;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,10 +22,6 @@ import java.util.Map;
  * @version 5.0
  */
 public class Goomba extends Enemy {
-	/**
-	 * A hashmap of behaviours for Goomba
-	 */
-	private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
 	/**
 	 * A boolean flag to denote whether the reset has been called
@@ -40,8 +34,8 @@ public class Goomba extends Enemy {
 	public Goomba() {
 		super("Goomba", 'g', 20);
 		//lets Goomba to wander around
-		this.behaviours.put(10, new WanderBehaviour());
-
+		this.addBehaviour(10, new WanderBehaviour());
+		this.addBehaviour(3, new DrinkBehaviour());
 		//register the reset instance into ResetManager
 		this.registerInstance();
 	}
@@ -74,14 +68,15 @@ public class Goomba extends Enemy {
 	@Override
 	public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
 		ActionList actions = new ActionList();
-		//can start attacking player if close
-		this.behaviours.put(1, new AttackBehaviour(otherActor,direction));
 
-		//can start following player once battle has begun
-		this.behaviours.put(2, new FollowBehaviour(otherActor));
 		// it can be attacked only by the HOSTILE opponent
 		if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
 			actions.add(new AttackAction(this,direction));
+			//can start attacking player if close
+			this.addBehaviour(1, new AttackBehaviour(otherActor,direction));
+
+			//can start following player once battle has begun
+			this.addBehaviour(2, new FollowBehaviour(otherActor));
 		}
 		return actions;
 	}
@@ -99,7 +94,7 @@ public class Goomba extends Enemy {
 		}
 
 		//loops through the behaviours hashmap and see what to do next
-		for(Behaviour behaviour : behaviours.values()) {
+		for(Behaviour behaviour : this.getBehaviours().values()) {
 			Action action = behaviour.getAction(this, map);
 			if (action != null)
 				return action;

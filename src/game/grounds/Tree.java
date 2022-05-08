@@ -3,6 +3,7 @@ package game.grounds;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Status;
 import game.actors.Enemy;
 import game.resets.Resettable;
 
@@ -32,6 +33,10 @@ public abstract class Tree extends Ground implements Jumpable, Resettable {
      */
     @Override
     public boolean canActorEnter(Actor actor) {
-        return !(actor instanceof Enemy);
+        boolean ret = false;
+        if ((actor.hasCapability(Status.HOSTILE_TO_ENEMY) && actor.hasCapability(Status.INVINCIBLE)) || actor.hasCapability(Status.CAN_FLY)){
+            ret = true;
+        }
+        return ret;
     }
 }

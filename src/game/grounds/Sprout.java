@@ -1,7 +1,12 @@
 package game.grounds;
 
+import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Status;
+import game.actions.JumpAction;
 import game.actors.Goomba;
+import game.items.Coin;
 
 /**
  * The Sprout class represents a Sprout, which is the first stage of growth for a tree.
@@ -30,7 +35,14 @@ public class Sprout extends Tree {
         setSuccessRate(90);
         this.registerInstance();
     }
-
+    @Override
+    public ActionList allowableActions(Actor actor, Location location, String direction) {
+        ActionList actions = new ActionList();
+        if (location.getActor() != actor && !actor.hasCapability(Status.INVINCIBLE)){
+            actions.add(new JumpAction(actor,location,direction,this));
+        }
+        return actions;
+    }
     /**
      * Tick method to enable the Sprout to change or perform
      * actions in accordance to time.
@@ -50,6 +62,11 @@ public class Sprout extends Tree {
             if (Math.random() <= 0.5){
                 location.setGround(new Dirt());
             }
+        }
+
+        if (location.containsAnActor() && location.getActor().hasCapability(Status.INVINCIBLE)){
+            location.setGround(new Dirt());
+            location.addItem(new Coin(5));
         }
 
         //Grow into a sapling after 10 turns
@@ -81,5 +98,9 @@ public class Sprout extends Tree {
     @Override
     public void resetInstance() {
         resetDone = true;
+    }
+    @Override
+    public String toString() {
+        return "Sprout";
     }
 }

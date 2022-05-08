@@ -7,35 +7,37 @@ import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Status;
 import game.actions.JumpAction;
+import game.items.Coin;
 
 public class Wall extends Ground implements Jumpable{
 
 	private int successRate;
 	private int fallDamage;
-	private JumpAction jumpAction;
-	private boolean jumpAttempt;
+
 	public Wall() {
 		super('#');
+		setFallDamage(20);
+		setSuccessRate(80);
 	}
 
-	public Action setJumpAttempt(Location location, String direction, boolean canJump){
-		this.jumpAttempt = canJump;
-		if (jumpAttempt){
-			return new MoveActorAction(location, direction);
+	@Override
+	public void tick(Location location) {
+		if (location.containsAnActor() && location.getActor().hasCapability(Status.INVINCIBLE)){
+			location.setGround(new Dirt());
+			location.addItem(new Coin(5));
 		}
-		else{
-			return new DoNothingAction();
-		}
-	}
-
-	public JumpAction getJumpAction() {
-		return jumpAction;
 	}
 
 	@Override
 	public boolean canActorEnter(Actor actor) {
-		return false;
+		if (actor.hasCapability(Status.INVINCIBLE) || actor.hasCapability(Status.CAN_FLY)){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	@Override
@@ -51,9 +53,9 @@ public class Wall extends Ground implements Jumpable{
 	@Override
 	public ActionList allowableActions(Actor actor, Location location, String direction) {
 		ActionList actions = new ActionList();
-		JumpAction jumpAction1 = new JumpAction(actor,location,direction,this);
-		this.jumpAction = jumpAction1;
-		actions.add(jumpAction1);
+		if (location.getActor() != actor && !actor.hasCapability(Status.INVINCIBLE)){
+			actions.add(new JumpAction(actor,location,direction,this));
+		}
 		return actions;
 	}
 
@@ -70,5 +72,10 @@ public class Wall extends Ground implements Jumpable{
 	@Override
 	public int getFallDamage() {
 		return fallDamage;
+	}
+
+	@Override
+	public String toString() {
+		return "Wall";
 	}
 }

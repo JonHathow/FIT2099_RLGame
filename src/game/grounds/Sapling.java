@@ -1,6 +1,10 @@
 package game.grounds;
 
+import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Status;
+import game.actions.JumpAction;
 import game.actors.Goomba;
 import game.items.Coin;
 
@@ -49,6 +53,11 @@ public class Sapling extends Tree implements Jumpable{
             }
         }
 
+        if (location.containsAnActor() && location.getActor().hasCapability(Status.INVINCIBLE)){
+            location.setGround(new Dirt());
+            location.addItem(new Coin(5));
+        }
+
         //10% chance to Spawn Coins
         if (Math.random() <= 0.1){
             location.addItem(new Coin(20));
@@ -61,6 +70,15 @@ public class Sapling extends Tree implements Jumpable{
 
     }
 
+
+    @Override
+    public ActionList allowableActions(Actor actor, Location location, String direction) {
+        ActionList actions = new ActionList();
+        if (location.getActor() != actor && !actor.hasCapability(Status.INVINCIBLE)){
+            actions.add(new JumpAction(actor,location,direction,this));
+        }
+        return actions;
+    }
     @Override
     public void setFallDamage(int fallDamage) {
         this.fallDamage = fallDamage;
@@ -84,5 +102,10 @@ public class Sapling extends Tree implements Jumpable{
     @Override
     public void resetInstance() {
         resetDone = true;
+    }
+
+    @Override
+    public String toString() {
+        return "Sapling";
     }
 }

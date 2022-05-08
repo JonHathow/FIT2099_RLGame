@@ -9,11 +9,8 @@ import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.actions.AttackAction;
-import game.behaviours.AttackBehaviour;
-import game.behaviours.Behaviour;
+import game.behaviours.*;
 import game.Status;
-import game.behaviours.FollowBehaviour;
-import game.behaviours.WanderBehaviour;
 import game.items.SuperMushroom;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,8 +43,8 @@ public class Koopa extends Enemy {
     public Koopa() {
         super("Koopa", 'K', 100);
         //lets Koopa to wander around
-        this.behaviours.put(10, new WanderBehaviour());
-
+        this.addBehaviour(10, new WanderBehaviour());
+        this.addBehaviour(3, new DrinkBehaviour());
         //adds a SuperMushroom into Koopa's inventory so when dead, will drop for others
         this.addItemToInventory(new SuperMushroom());
 
@@ -55,6 +52,14 @@ public class Koopa extends Enemy {
         this.registerInstance();
     }
 
+    public Koopa(String name, char displayChar, int hitPoints) {
+        super(name, displayChar, hitPoints);
+        //lets Koopa to wander around
+        this.addBehaviour(10, new WanderBehaviour());
+        this.addBehaviour(3, new DrinkBehaviour());
+        //adds a SuperMushroom into Koopa's inventory so when dead, will drop for others
+        this.addItemToInventory(new SuperMushroom());
+    }
     /**
      * Replaces the Intrinsic Weapon to punch ability of 30 damage
      */
@@ -87,12 +92,12 @@ public class Koopa extends Enemy {
         ActionList actions = new ActionList();
 
         //if Koopa is not hiding in shell and the otherActor is hostile or if otherActor is Invincible, allows Koopa to be attacked
-        if((!this.hasCapability(Status.DORMANT) && otherActor.hasCapability(Status.HOSTILE_TO_ENEMY) || otherActor.hasCapability(Status.INVINCIBLE))) {
+        if(((!this.hasCapability(Status.DORMANT) && otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) || otherActor.hasCapability(Status.INVINCIBLE))) {
             //can start attacking player if close
-            this.behaviours.put(1, new AttackBehaviour(otherActor,direction));
+            this.addBehaviour(1, new AttackBehaviour(otherActor,direction));
 
             //can start following player once battle has begun
-            this.behaviours.put(2, new FollowBehaviour(otherActor));
+            this.addBehaviour(2, new FollowBehaviour(otherActor));
 
             // it can be attacked by the opponent
             actions.add(new AttackAction(this,direction));
@@ -132,7 +137,7 @@ public class Koopa extends Enemy {
             this.setDisplayChar('D');
 
             //Clear Koopa's behaviours as Koopa is hiding in shell
-            this.behaviours.clear();
+            this.clearBehaviour();
         }
         //if otherActor has a Wrench, they can break shell
         else if (this.hasCapability(Status.DORMANT) && otherActor.hasCapability(Status.DESTROY_SHELL)){
@@ -155,7 +160,7 @@ public class Koopa extends Enemy {
             return new DoNothingAction();
         }
         //loops through the behaviours hashmap and see what to do next
-        for(Behaviour behaviour : behaviours.values()) {
+        for(Behaviour behaviour : getBehaviours().values()) {
             Action action = behaviour.getAction(this, map);
             if (action != null)
                 return action;

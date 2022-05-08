@@ -44,6 +44,14 @@ public class AttackAction extends Action {
 		this.direction = direction;
 	}
 
+	public String getDirection() {
+		return direction;
+	}
+
+	public Actor getTarget() {
+		return target;
+	}
+
 	/**
 	 * Execution method of AttackAction.
 	 *

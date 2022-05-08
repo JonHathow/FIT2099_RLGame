@@ -5,7 +5,11 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.behaviours.Behaviour;
 import game.resets.Resettable;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Enemy class is an abstract class used to seperate enemy actors with non-enemy actors.
@@ -14,6 +18,17 @@ import game.resets.Resettable;
  */
 
 public abstract class Enemy extends Actor implements Resettable {
+    private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
+
+    public void addBehaviour(int key, Behaviour behaviour){
+        this.getBehaviours().put(key,behaviour);
+    }
+    public void clearBehaviour(){
+        this.getBehaviours().clear();
+    }
+    public Map<Integer, Behaviour> getBehaviours() {
+        return behaviours;
+    }
 
     /**
      * Constructor.

@@ -3,42 +3,34 @@ How Yu Chern
 Eugene Kah Chun Fan
 
 Work Breakdown Agreement (WBA)
-Version 3 (Assignment 2)
-Last Updated: 3/5/2022
+Assignment 3 - Version 1
+Last Updated: 8/5/2022
 
 Group Members Signature:
-1) How Yu Chern - I accept this WBA
-2) Eugene Kah Chun Fan - I accept this WBA
+1) How Yu Chern -
+2) Eugene Kah Chun Fan -
 
 Task Breakdown and Summary:
-Each person in charge of a requirement (REQ) will be in charge of it's respective UML Diagram and Design Rational components. Each member's components will be combined to create the complete version of the UML Diagram, and Design Rational for all 6 Requirements. This will be done in each member's own time until the deadline. Each person's work will be reviewed by other members of the group, to ensure that it is complete and up to date.
-Each person will pick one interesting feature in one of the 6 requirements, and will create a sequence diagram out of it.
+Each person in charge of a requirement (REQ) will be in charge of its respective UML Diagram and Design Rational components. Each member's components will be combined to create the complete version of the UML Diagram, and Design Rationale for all 4 Requirements. This will be done in each member's own time until the deadline. Each person's work will be reviewed by other members of the group, to ensure that it is complete and up to date.
+One interesting feature in one of the 4 requirements will be used to create a sequence diagram out of it.
 For Group Tasks, members will meet up and collaborate, working together to complete the groups tasks of the requirements.
-This WBA, and all 6 Requirement's Diagrams and Design Rational will combined into a single PDF for submission.
+This WBA, and all 4 Requirements Diagrams and Design Rationale will combine into a single PDF for submission.
+Note that we are choosing Creative Mode
 
 Tasks for How Yu Chern
 Review By: Eugene Fan
-Deadline: 2/5/2022
+Deadline: 15/5/2022
 
 Tasks:
-REQ1: Add Trees to Terrain
-REQ2: Jump Ability
+REQ1: Lava Zone
+REQ4: Creative Task - Random Populator
 
 Tasks for Eugene Fan
 Review By: How Yu Chern
-Deadline: 2/5/2022
+Deadline: 15/5/2022
 
 Tasks:
-REQ3: Enemies
-REQ4: Magical Items
-
-Group Tasks
-These tasks will be done and will be reviewed by both group member.
-Deadline: 3/5/2022
-
-
-Tasks:
-REQ5: Trading
-REQ7: Reset Game
+REQ2: More Allies and Enemies
+REQ3: Magical Fountain
 
 
