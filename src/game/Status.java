@@ -11,9 +11,10 @@ public enum Status {
     DORMANT, // use this status to tell that Koopa is dormant(hiding in shell)
     INVINCIBLE, // use this status to tell that Actor is invincible
     FERTILE, //Ground capability for new trees (sprouts) to spawn on it.
+
+    BLAZING, //Ground capability to deal fire damage to actors which stand on it.
+
     SAVE_PRINCESS,
-
     CAN_FLY,
-
     POWER_UP,
 }
