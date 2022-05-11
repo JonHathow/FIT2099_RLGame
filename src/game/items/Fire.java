@@ -1,6 +1,7 @@
 package game.items;
 
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actors.Bowser;
@@ -8,7 +9,7 @@ import game.actors.Bowser;
 public class Fire extends Item {
     private int fadeCounter;
     public Fire() {
-        super("Fire", 'F', false);
+        super("Fire", 'v', false);
         fadeCounter = 3;
     }
 
@@ -21,7 +22,8 @@ public class Fire extends Item {
             if(currentLocation.containsAnActor()){
                 if (!(currentLocation.getActor() instanceof Bowser)){
                     currentLocation.getActor().hurt(20);
-                    System.out.println("Fire hurt " + currentLocation.getActor());
+                    Display display = new Display();
+                    display.println("Fire hurt " + currentLocation.getActor());
                 }
             }
 

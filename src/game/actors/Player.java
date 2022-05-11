@@ -151,8 +151,7 @@ public class Player extends Actor implements WalletCapable, Resettable {
 		else if (resetDone == true && resetAdded == true){
 			actions.remove(resetAction);
 		}
-
-		System.out.println(printing);
+		display.println(printing);
 		return menu.showMenu(this, actions, display);
 	}
 

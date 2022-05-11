@@ -7,6 +7,8 @@ import game.Status;
 import game.items.Bottle;
 import game.items.HealthWater;
 
+import static java.lang.Math.max;
+
 
 public class HealthFountain extends Fountain {
 
@@ -21,19 +23,19 @@ public class HealthFountain extends Fountain {
             for (Item item:actor.getInventory()){
                 if (item instanceof Bottle){
                     ((Bottle) item).addContent(this.getWater());
-                    this.reduceCapacity();
+                    this.reduceCapacity(1);
                     break;
                 }
             }
         }
         else if (!actor.hasCapability(Status.HOSTILE_TO_ENEMY)){
             this.getWater().consume(actor,map);
-            this.reduceCapacity();
+            this.reduceCapacity(5);
         }
     }
 
     @Override
     public String toString() {
-        return "Health Fountain (" + getCapacity() + "/10)";
+        return "Health Fountain (" + max(getCapacity(),0) + "/10)";
     }
 }
