@@ -1,13 +1,16 @@
 package game.grounds;
 
+import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
+import game.actions.JumpAction;
 import game.actors.Enemy;
 import game.resets.Resettable;
 
 public abstract class Tree extends Ground implements Jumpable, Resettable {
+    private JumpAction jumpAction;
     /**
      * Constructor.
      *
@@ -26,6 +29,17 @@ public abstract class Tree extends Ground implements Jumpable, Resettable {
         super.tick(location);
     }
 
+    @Override
+    public ActionList allowableActions(Actor actor, Location location, String direction) {
+        ActionList actions = new ActionList();
+        if (location.getActor() != actor && !actor.hasCapability(Status.INVINCIBLE)){
+            JumpAction jumpAction1 = new JumpAction(actor,location,direction,this);
+            setJumpAction(jumpAction1);
+            actions.add(getJumpAction());
+        }
+        return actions;
+    }
+
     /**
      * Method to check if an Actor can enter the ground with the tree on it (a.k.a. jump onto the tree).
      * @param actor the Actor to check
@@ -38,5 +52,14 @@ public abstract class Tree extends Ground implements Jumpable, Resettable {
             ret = true;
         }
         return ret;
+    }
+    @Override
+    public void setJumpAction(JumpAction jumpAction) {
+        this.jumpAction = jumpAction;
+    }
+
+    @Override
+    public JumpAction getJumpAction() {
+        return jumpAction;
     }
 }

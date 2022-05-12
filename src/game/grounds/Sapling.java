@@ -10,7 +10,7 @@ import game.items.Coin;
 
 /**
  * The Sapling class represents a Mature, which is the second stage of growth for a tree.
- * This class manages the attributes and behaviours of a sappling.
+ * This class manages the attributes and behaviours of a sapling.
  *
  * @author How Yu Chern
  * @version 1.0.0
@@ -70,15 +70,6 @@ public class Sapling extends Tree implements Jumpable{
 
     }
 
-
-    @Override
-    public ActionList allowableActions(Actor actor, Location location, String direction) {
-        ActionList actions = new ActionList();
-        if (location.getActor() != actor && !actor.hasCapability(Status.INVINCIBLE)){
-            actions.add(new JumpAction(actor,location,direction,this));
-        }
-        return actions;
-    }
     @Override
     public void setFallDamage(int fallDamage) {
         this.fallDamage = fallDamage;

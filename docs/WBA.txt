@@ -4,11 +4,11 @@ Eugene Kah Chun Fan
 
 Work Breakdown Agreement (WBA)
 Assignment 3 - Version 1
-Last Updated: 8/5/2022
+Last Updated: 12/5/2022
 
 Group Members Signature:
 1) How Yu Chern - I accept the WBA
-2) Eugene Kah Chun Fan -
+2) Eugene Kah Chun Fan - I accept the WBA
 
 Task Breakdown and Summary:
 Each person in charge of a requirement (REQ) will be in charge of its respective UML Diagram and Design Rational components. Each member's components will be combined to create the complete version of the UML Diagram, and Design Rationale for all 4 Requirements. This will be done in each member's own time until the deadline. Each person's work will be reviewed by other members of the group, to ensure that it is complete and up to date.

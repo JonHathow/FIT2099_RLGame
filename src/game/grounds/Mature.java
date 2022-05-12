@@ -99,14 +99,7 @@ public class Mature extends Tree {
         }
     }
 
-    @Override
-    public ActionList allowableActions(Actor actor, Location location, String direction) {
-        ActionList actions = new ActionList();
-        if (location.getActor() != actor && !actor.hasCapability(Status.INVINCIBLE)){
-            actions.add(new JumpAction(actor,location,direction,this));
-        }
-        return actions;
-    }
+
     @Override
     public void setFallDamage(int fallDamage) {
         this.fallDamage = fallDamage;

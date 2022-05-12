@@ -1,9 +1,6 @@
 package game.grounds;
 
-import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
-import edu.monash.fit2099.engine.actions.DoNothingAction;
-import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
@@ -12,7 +9,7 @@ import game.actions.JumpAction;
 import game.items.Coin;
 
 public class Wall extends Ground implements Jumpable{
-
+	private JumpAction jumpAction;
 	private int successRate;
 	private int fallDamage;
 
@@ -54,7 +51,9 @@ public class Wall extends Ground implements Jumpable{
 	public ActionList allowableActions(Actor actor, Location location, String direction) {
 		ActionList actions = new ActionList();
 		if (location.getActor() != actor && !actor.hasCapability(Status.INVINCIBLE)){
-			actions.add(new JumpAction(actor,location,direction,this));
+			JumpAction jumpAction1 = new JumpAction(actor,location,direction,this);
+			setJumpAction(jumpAction1);
+			actions.add(getJumpAction());
 		}
 		return actions;
 	}
@@ -72,6 +71,16 @@ public class Wall extends Ground implements Jumpable{
 	@Override
 	public int getFallDamage() {
 		return fallDamage;
+	}
+
+	@Override
+	public void setJumpAction(JumpAction jumpAction) {
+		this.jumpAction = jumpAction;
+	}
+
+	@Override
+	public JumpAction getJumpAction() {
+		return jumpAction;
 	}
 
 	@Override
