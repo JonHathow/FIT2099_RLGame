@@ -8,11 +8,31 @@ import game.Status;
 import game.actions.JumpAction;
 import game.items.Coin;
 
+/**
+ * Wall class represents a Wall. This Wall class will have all the necessary methods and attributes for a
+ * Wall to function in the game.
+ * @author Eugene Fan Kah Chun
+ * @version 1.0
+ */
 public class Wall extends Ground implements Jumpable{
+	/**
+	 * An instance of the jumpAction
+	 */
 	private JumpAction jumpAction;
+
+	/**
+	 * The success rate of an actor jumping onto the Wall
+	 */
 	private int successRate;
+
+	/**
+	 * The fall damage inflicted an actor failing to jump onto the Wall
+	 */
 	private int fallDamage;
 
+	/**
+	 * Constructor
+	 */
 	public Wall() {
 		super('#');
 		setFallDamage(20);
@@ -29,6 +49,7 @@ public class Wall extends Ground implements Jumpable{
 
 	@Override
 	public boolean canActorEnter(Actor actor) {
+		//if an actor can fly ar is invincible
 		if (actor.hasCapability(Status.INVINCIBLE) || actor.hasCapability(Status.CAN_FLY)){
 			return true;
 		}
@@ -43,19 +64,20 @@ public class Wall extends Ground implements Jumpable{
 	}
 
 	@Override
-	public void setFallDamage(int fallDamage) {
-		this.fallDamage = fallDamage;
-	}
-
-	@Override
 	public ActionList allowableActions(Actor actor, Location location, String direction) {
 		ActionList actions = new ActionList();
 		if (location.getActor() != actor && !actor.hasCapability(Status.INVINCIBLE)){
-			JumpAction jumpAction1 = new JumpAction(actor,location,direction,this);
+			JumpAction jumpAction1 = new JumpAction(location,direction,this);
 			setJumpAction(jumpAction1);
 			actions.add(getJumpAction());
 		}
 		return actions;
+	}
+
+	//setters and getters
+	@Override
+	public void setFallDamage(int fallDamage) {
+		this.fallDamage = fallDamage;
 	}
 
 	@Override

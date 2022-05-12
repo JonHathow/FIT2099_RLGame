@@ -6,7 +6,6 @@ import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 import game.actions.JumpAction;
-import game.actors.Enemy;
 import game.resets.Resettable;
 
 public abstract class Tree extends Ground implements Jumpable, Resettable {
@@ -33,7 +32,7 @@ public abstract class Tree extends Ground implements Jumpable, Resettable {
     public ActionList allowableActions(Actor actor, Location location, String direction) {
         ActionList actions = new ActionList();
         if (location.getActor() != actor && !actor.hasCapability(Status.INVINCIBLE)){
-            JumpAction jumpAction1 = new JumpAction(actor,location,direction,this);
+            JumpAction jumpAction1 = new JumpAction(location,direction,this);
             setJumpAction(jumpAction1);
             actions.add(getJumpAction());
         }

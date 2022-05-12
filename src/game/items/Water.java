@@ -6,6 +6,12 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.Status;
 import game.actions.ConsumeAction;
 
+/**
+ * Water class represents a Water. This Water class will have all the necessary methods and attributes for a
+ * Water to function in the game.
+ * @author Eugene Fan Kah Chun
+ * @version 1.0
+ */
 public abstract class Water implements ConsumeCapable{
     @Override
     public abstract void consume(Actor actor, GameMap map);

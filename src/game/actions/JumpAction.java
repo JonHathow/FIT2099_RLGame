@@ -11,45 +11,99 @@ import game.grounds.Jumpable;
 
 
 import java.util.Random;
-
+/**
+ * JumpAction class is the class which handles one Actor jumping to a higher ground.
+ * @author Eugene Fan Kah Chun
+ * @version 3.0
+ */
 public class JumpAction extends Action {
+
     /**
-     * The Actor that is to be traded with
+     * Initialized of Random class
      */
-    protected Actor target;
     protected Random rand = new Random();
+
     /**
-     * The direction of trading.
+     * The direction of ground relative to the actor jumping
      */
     protected String direction;
+
+    /**
+     * The high ground that actor is trying to jump on
+     */
     private Jumpable ground;
+
+    /**
+     * The location of the ground in the map
+     */
     private Location location;
 
 
-    public JumpAction(Actor target, Location location, String direction, Jumpable ground){
-        this.ground = ground;
-        this.location = location;
-        this.direction = direction;
-        this.target = target;
+    /**
+     * Constructor.
+     * @param location the location of the ground in the map
+     * @param direction the direction of ground relative to the actor jumping
+     * @param ground the high ground that actor is trying to jump on
+     */
+    public JumpAction(Location location, String direction, Jumpable ground){
+        setGround(ground);
+        setLocation(location);
+        setDirection(direction);
     }
 
+    /**
+     * Execution method of JumpAction.
+     *
+     * @param actor the Actor trying to jump
+     * @param map the current map of execution
+     */
     @Override
     public String execute(Actor actor, GameMap map) {
-        if (actor.hasCapability(Status.TALL) || (rand.nextInt(100) <= ground.getSuccessRate())){
+        if (actor.hasCapability(Status.TALL) || (rand.nextInt(100) <= getGround().getSuccessRate())){
             //no fall damage
-            MoveActorAction moveActorAction = new MoveActorAction(location, direction);
+            MoveActorAction moveActorAction = new MoveActorAction(getLocation(), getDirection());
             moveActorAction.execute(actor,map);
             return menuDescription(actor);
 
         }
         else{
-            actor.hurt(ground.getFallDamage());
+            actor.hurt(getGround().getFallDamage());
             return actor + " fell and got hurt!";
         }
     }
 
+    //setters and getters
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public Jumpable getGround() {
+        return ground;
+    }
+
+    public void setGround(Jumpable ground) {
+        this.ground = ground;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    /**
+     * Prepares the menu description of JumpAction.
+     *
+     * @param actor the Actor trying to jump
+     */
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " jumps to the " + direction + " " + ground;
+        return actor + " jumps to the " + getDirection() + " " + getGround();
     }
 }

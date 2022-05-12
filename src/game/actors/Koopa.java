@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Goomba class is a reptilian mini-trooper of the Koopa Troop. Contains all the necessary methods and attributes for
+ * Koopa class is a reptilian mini-trooper of the Koopa Troop. Contains all the necessary methods and attributes for
  * Koopa to work in a game.
  * @author Eugene Fan Kah Chun
  * @version 5.0

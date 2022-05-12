@@ -6,27 +6,31 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.items.Bottle;
 
+/**
+ * SupplyAction class is the class which handles one Actor getting supplies from the Toad.
+ * @author Eugene Fan Kah Chun
+ * @version 1.0
+ */
 public class SupplyAction extends Action {
-    /**
-     * The Actor that is to be supplied with
-     */
-    protected Actor target;
 
     /**
-     * The direction of supplying.
-     */
-    protected String direction;
-
-    /**
-     * The instance of an item
+     * The instance of the item supplied
      */
     private Item item;
-    public SupplyAction(Actor target, String direction, Item item){
-        this.target = target;
-        this.direction = direction;
-        this.item = item;
+
+    /**
+     * Constructor.
+     * @param item the item supplied by Toad
+     */
+    public SupplyAction(Item item){
+        setItem(item);
     }
 
+    /**
+     * Execution method of SupplyAction.
+     * @param actor The actor potentially receiving the supply.
+     * @param map The map the actor is on.
+     */
     @Override
     public String execute(Actor actor, GameMap map) {
         boolean hasBottle = false;
@@ -37,7 +41,7 @@ public class SupplyAction extends Action {
             }
         }
         if (!hasBottle){
-            actor.addItemToInventory(item);
+            actor.addItemToInventory(getItem());
             return menuDescription(actor);
         }
         else{
@@ -45,8 +49,22 @@ public class SupplyAction extends Action {
         }
     }
 
+    //setter and getter
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    /**
+     * Prepares the menu description of SupplyAction.
+     *
+     * @param actor the Actor executing the SupplyAction with Toad
+     */
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " gets " + item + " from Toad";
+        return actor + " gets " + getItem() + " from Toad";
     }
 }

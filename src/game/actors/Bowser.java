@@ -19,6 +19,12 @@ import game.items.Fire;
 import game.items.Key;
 
 
+/**
+ * Bowser class is a powerful enemy. Contains all the necessary methods and attributes for Bowser
+ * to work in a game.
+ * @author Eugene Fan Kah Chun
+ * @version 1.0
+ */
 public class Bowser extends Enemy{
 
     /**
@@ -26,17 +32,20 @@ public class Bowser extends Enemy{
      */
     private boolean resetDone = false;
 
+    /**
+     * The start location for Bowser used for reset
+     */
     private Location startLocation = null;
 
+    /**
+     * Constructor.
+     */
     public Bowser() {
         super("Bowser", 'B', 500);
         this.addItemToInventory(new Key());
         this.addBehaviour(3, new DrinkBehaviour());
         this.registerInstance();
-
-
     }
-
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         if (startLocation == null) {
@@ -51,6 +60,8 @@ public class Bowser extends Enemy{
         for(Behaviour behaviour : getBehaviours().values()) {
             Action action = behaviour.getAction(this, map);
             if (action != null){
+
+                //if it is attackAction(), place fire item at the same ground as attack target
                 if (action instanceof AttackAction){
                     map.at(map.locationOf(((AttackAction) action).getTarget()).x(),map.locationOf(((AttackAction) action).getTarget()).y()).addItem(new Fire());
                 }
@@ -60,11 +71,17 @@ public class Bowser extends Enemy{
         return new DoNothingAction();
     }
 
+    /**
+     * Replaces the Intrinsic Weapon to punch ability of 80 damage
+     */
     @Override
     protected IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(80, "punches");
     }
 
+    /**
+     *
+     */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
 
@@ -79,6 +96,9 @@ public class Bowser extends Enemy{
         return actions;
     }
 
+    /**
+     * Sets what happens when reset is called by ResetManager
+     */
     @Override
     public void resetInstance() {
         this.heal(this.getMaxHp());

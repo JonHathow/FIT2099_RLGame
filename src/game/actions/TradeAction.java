@@ -12,7 +12,6 @@ import game.items.TradeCapable;
  * @author Eugene Fan Kah Chun
  * @version 2.0
  */
-
 public class TradeAction extends Action {
     /**
      * The Actor that is to be traded with

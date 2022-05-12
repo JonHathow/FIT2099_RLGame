@@ -62,7 +62,7 @@ public class Toad extends Actor{
             }
         }
         if (!hasBottle){
-            actions.add(new SupplyAction(this,direction, new Bottle()));
+            actions.add(new SupplyAction(new Bottle()));
         }
 
         //Lets's other actors start trading items with Toad when nearby Toad
