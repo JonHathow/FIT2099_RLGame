@@ -1,13 +1,15 @@
 # mario-s1-2022
 
-Assignment repo for Semester 1 - 2022
 # Requirement 4
 
 **Title**:
-_write down the title of your requirement here..._
+_Random Populator_
 
 **Description**:
-_write down the summary of the feature here..._
+_Random Populator is a feature that allows the game to randomly
+populate any gamemap with any game entity (i.e. Actors, Items, Grouds).
+It can be called to do so at the start of the game, and also when
+a reset occurs._
 
 **Explanation why it adheres to SOLID principles** (WHY):
 
