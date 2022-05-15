@@ -8,11 +8,19 @@ import game.Status;
 import game.actions.JumpAction;
 import game.resets.Resettable;
 
+/**
+ * The Tree class represents a tree, which is the parent class for the tree variants: Sprout, Sapling and Mature.
+ *
+ * @author How Yu Chern
+ * @version 4.0.0
+ */
 public abstract class Tree extends Ground implements Jumpable, Resettable {
+    /**
+     * The jump action for the player to jump onto the tree.
+     */
     private JumpAction jumpAction;
     /**
      * Constructor.
-     *
      */
     public Tree(Character displayChar) {
         super(displayChar);
@@ -28,6 +36,13 @@ public abstract class Tree extends Ground implements Jumpable, Resettable {
         super.tick(location);
     }
 
+    /**
+     * Allowable Actions method of Tree.
+     * @param actor the Actor acting
+     * @param location the current Location
+     * @param direction the direction of the Ground from the Actor
+     * @return
+     */
     @Override
     public ActionList allowableActions(Actor actor, Location location, String direction) {
         ActionList actions = new ActionList();
@@ -52,11 +67,20 @@ public abstract class Tree extends Ground implements Jumpable, Resettable {
         }
         return ret;
     }
+
+    /**
+     * Setter for the tree's jump action.
+     * @param jumpAction the jump action.
+     */
     @Override
     public void setJumpAction(JumpAction jumpAction) {
         this.jumpAction = jumpAction;
     }
 
+    /**
+     * Getter for the tree's jump action.
+     * @return the jump action.
+     */
     @Override
     public JumpAction getJumpAction() {
         return jumpAction;

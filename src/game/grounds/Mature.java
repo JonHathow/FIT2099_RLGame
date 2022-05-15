@@ -120,8 +120,6 @@ public class Mature extends Tree {
         return fallDamage;
     }
 
-
-
     @Override
     public void resetInstance() {
         resetDone = true;
