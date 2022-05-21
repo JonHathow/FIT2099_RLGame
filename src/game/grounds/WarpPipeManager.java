@@ -19,21 +19,24 @@ public class WarpPipeManager {
      */
     private List<WarpPipe> warpPipes = new ArrayList<>();
 
+    private WarpPipe lavaZonePipe;
+
     public void registerPipe(WarpPipe warpPipe){
-        warpPipes.add(warpPipe);
+       warpPipes.add(warpPipe);
     }
 
-    public void link(WarpPipe warpPipe1, WarpPipe warpPipe2){
-        warpPipe1.setWarp(new MoveActorAction(warpPipe2.getSource(), "helikopter! helikopter!"));
-        warpPipe2.setWarp(new MoveActorAction(warpPipe1.getSource(), "helikopter! helikopter!"));
+    public void findNexus(){    }
+
+    public void link(WarpPipe warpPipe1){
+        warpPipe1.setWarp(new MoveActorAction(lavaZonePipe.getSource(), " to Lava Zone."));
+        getLavaZonePipe().setWarp(new MoveActorAction(warpPipe1.getSource(), " to Overworld."));
     }
 
-    public void crossMapLink(){
-        for (int i = 0; i < warpPipes.size(); i++){
-            for (int j = 0; j < warpPipes.size(); j++){
+    private void setLavaZonePipe(WarpPipe lavaZonePipe) {
+        this.lavaZonePipe = lavaZonePipe;
+    }
 
-            }
-
-        }
+    private WarpPipe getLavaZonePipe(){
+        return this.lavaZonePipe;
     }
 }
