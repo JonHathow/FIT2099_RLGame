@@ -55,7 +55,7 @@ public class Bowser extends Enemy{
         if (this.getStartLocation() == null) {
             setStartLocation(map.locationOf(this));
         }
-        if (this.isResetDone()){
+        if (this.isResetDone() && !map.locationOf(this).containsAnActor()){
             MoveActorAction moveActorAction = new MoveActorAction(this.getStartLocation(),null);
             moveActorAction.execute(this,map);
             this.setResetDone(false);
@@ -109,7 +109,7 @@ public class Bowser extends Enemy{
 
     /**
      * Sets the resetDone with a new resetDone
-     * @param resetDone
+     * @param resetDone The reset flag, which is true if the reset has been done, false otherwise.
      */
     public void setResetDone(boolean resetDone) {
         this.resetDone = resetDone;
@@ -124,7 +124,7 @@ public class Bowser extends Enemy{
 
     /**
      * Sets the startLocation with a new startLocation
-     * @param startLocation
+     * @param startLocation The starting location of Bowser.
      */
     public void setStartLocation(Location startLocation) {
         this.startLocation = startLocation;

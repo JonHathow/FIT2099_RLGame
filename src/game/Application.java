@@ -15,6 +15,7 @@ import game.actors.*;
 import game.grounds.*;
 import game.items.Bottle;
 import game.items.Wrench;
+import game.populate.GroundRandomPopulator;
 
 
 /**
@@ -23,7 +24,7 @@ import game.items.Wrench;
  */
 public class Application {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 			World world = new World(new Display());
 
@@ -53,6 +54,11 @@ public class Application {
 
 			GameMap gameMap = new GameMap(groundFactory, map);
 			world.addGameMap(gameMap);
+
+			GroundRandomPopulator groundRandomPopulator = new GroundRandomPopulator();
+			groundRandomPopulator.populate(gameMap, 5, 10, new Sprout());
+			groundRandomPopulator.populate(gameMap, 5, 10, new WarpPipe());
+
 
 			//Lava Zone
 			List<String> lavaMap = Arrays.asList(
@@ -109,7 +115,6 @@ public class Application {
 //			gameMap.at(44, 11).addItem(new Coin(1000));
 //			gameMap.at(36, 11).addItem(new SuperMushroom());
 //			gameMap.at(36, 10).addItem(new PowerStar());
-
 
 			world.run();
 	}

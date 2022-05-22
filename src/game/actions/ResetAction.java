@@ -3,6 +3,12 @@ package game.actions;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.actors.Bowser;
+import game.actors.Goomba;
+import game.actors.Koopa;
+import game.grounds.Sprout;
+import game.populate.ActorRandomPopulator;
+import game.populate.GroundRandomPopulator;
 import game.resets.ResetManager;
 
 /**
@@ -11,6 +17,16 @@ import game.resets.ResetManager;
  * @version 1.0
  */
 public class ResetAction extends Action {
+
+    /**
+     * Instance of Ground Random Populator.
+     */
+    GroundRandomPopulator grp = new GroundRandomPopulator();
+
+    /**
+     * Instance of Actor Random Populator.
+     */
+    ActorRandomPopulator arp = new ActorRandomPopulator();
 
     /**
      * Execution method of ResetAction.
@@ -23,6 +39,28 @@ public class ResetAction extends Action {
 
         //run the ResetManager to start globally resetting the game
         ResetManager.getInstance().run();
+
+        //Spawn some random trees
+        try {
+            grp.populate(map, 5, 10, new Sprout());
+        }catch (Exception e){
+           e.printStackTrace();
+        }
+
+        //Spawn some Goombas
+        try {
+            arp.populate(map, 2, 4, new Goomba());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //Spawn some Koopas
+        try {
+            arp.populate(map, 2, 4, new Koopa());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         return actor + " has chosen to reset the game!";
     }
 

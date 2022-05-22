@@ -1,8 +1,11 @@
 package game.populate;
 
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Ground;
+import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.positions.NumberRange;
 import game.Status;
+import game.items.Coin;
 import game.resets.ResetManager;
 import game.resets.Resettable;
 
@@ -16,27 +19,14 @@ import java.util.Random;
  * @author How Yu Chern
  * @version 1.0.0
  */
-public class RandomPopulator {
-    /**
-     * A singleton reset manager instance
-     */
-    private static RandomPopulator instance;
+public abstract class RandomPopulator {
+
+    protected List<Location> targetLocations = new ArrayList<>();
 
     /**
-     * Get the singleton instance of reset manager
-     * @return ResetManager singleton instance
+     * Zero Parameter Constructor
      */
-    public static RandomPopulator getInstance(){
-        if(instance == null){
-            instance = new RandomPopulator();
-        }
-        return instance;
-    }
-
-    /**
-     * Constructor
-     */
-    private RandomPopulator(){}
+    public RandomPopulator(){}
 
     /**
      * Method to randomly populate the game map with trees (Sprouts), with several constraints
@@ -46,7 +36,7 @@ public class RandomPopulator {
      * @param treeMax The maximum count of trees to put on the GameMap
      * @throws RuntimeException Throws exception when the code fails to initialize the correct random amount of trees.
      */
-    public static void randomPopulate(GameMap gameMap, int treeMin, int treeMax, PopulateCapable entity){
+    public void randomPopulate(GameMap gameMap, int treeMin, int treeMax) throws Exception{
         Random random = new Random();
         int randX = 0;
         int randY = 0;
@@ -55,11 +45,11 @@ public class RandomPopulator {
 
         //Assertions
         //Check if treeMin is 1 or more.
-        //assert treeMin < 0 : "The minimum count of trees allowed on the map must be more than 0.";
+        assert treeMin < 0 : "The minimum count of trees allowed on the map must be more than 0.";
         //Check if treeMax exceeds the map's area (width*height)
-        //assert treeMax > (gameMap.getXRange().max() * gameMap.getYRange().max()) : "The maximum count of trees allowed cannot exceed the map's total area.";
+        assert treeMax > (gameMap.getXRange().max() * gameMap.getYRange().max()) : "The maximum count of trees allowed cannot exceed the map's total area.";
         //Check if treeMax is less than treeMin.
-        //assert treeMin > treeMax : "The minimum count of trees must be less than the maximum count of trees.";
+        assert treeMin > treeMax : "The minimum count of trees must be less than the maximum count of trees.";
 
         //Pick a random amount of trees to spawn within a constraint.
         //This line of code below is done because random.nextInt(treeMin, treeMax) is not working.
@@ -75,8 +65,8 @@ public class RandomPopulator {
             randY = random.nextInt(gameMap.getYRange().max());
 
             //Check if the location is fertile ground which Sprouts can grow on.
-            if(gameMap.at(randX,randY).getGround().hasCapability(Status.FERTILE) && !gameMap.at(randX,randY).containsAnActor()) {
-                randomPopulate(gameMap, randX, randY, entity);
+            if(!(targetLocations.contains(gameMap.at(randX,randY))) && gameMap.at(randX,randY).getGround().hasCapability(Status.FERTILE) && !gameMap.at(randX,randY).containsAnActor()) {
+                addTargetLocation(gameMap.at(randX,randY));
                 currentTreeCount++;
             }
             loopCounter++;
@@ -88,10 +78,11 @@ public class RandomPopulator {
         }
     }
 
-    public void populateAt(GameMap gameMap, int x, int y, PopulateCapable entity){
-        //gameMap.at().setGround();
-        //gameMap.at().addActor();
-        //gameMap.at().addItem();
+    public void addTargetLocation(Location location){
+        targetLocations.add(location);
     }
 
+    public void removeTargetLocation(Location location){
+        targetLocations.remove(location);
+    }
 }

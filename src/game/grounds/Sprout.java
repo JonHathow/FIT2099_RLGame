@@ -91,6 +91,7 @@ public class Sprout extends Tree {
     public void resetInstance() {
         resetDone = true;
     }
+
     @Override
     public String toString() {
         return "Sprout";
