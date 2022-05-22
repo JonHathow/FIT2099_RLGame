@@ -38,13 +38,13 @@ public class Application {
 				"...............................................#................................",
 				"................................................#...............................",
 				"..................................................#.............................",
-				".................................................##.............................",
-				"................................................##..............................",
+				".........................................C.......##.............................",
+				"............................................C...##..............................",
 				"........................................+#____####..............................",
 				".......................................+#_____###++.............................",
 				".......................................+#______###..............................",
 				"........................................+#_____###..............................",
-				".....................C..C..C.....................##.............................",
+				".................................................##.............................",
 				"...................................................#............................",
 				"....................................................#...........................",
 				".....................................................#..........................",
@@ -61,9 +61,9 @@ public class Application {
 				"_______####__._.....LLL....#...LLLL...........................LLLL...#",
 				"########..__._.............#...LLLL...........................LLLL...#",
 				"............_......#########...LLLL...........................LLLL...#",
-				".....................................................................#",
-				".....................................................................#",
-				".....................................................................#",
+				"................................................_....................#",
+				".............................................._____..................#",
+				"..............................................._._...................#",
 				"...................#########.........................................#",
 				"...........................#.......L........................L........#",
 				"....................LLL....#........LLLLLLLLLLLLLLLLLLLLLLLL.........#",
@@ -87,28 +87,41 @@ public class Application {
 				System.out.println(e.getMessage());
 			}
 
+			//Initializing Peach and Bowser
+			lavaZone.at(45, 6).addActor(new Bowser());
+			lavaZone.at(48, 6).addActor(new PrincessPeach());
+
 			//Adding Player to the world.
 			Actor mario = new Player("Mario", 'm', 600);
-			mario.addItemToInventory(new Wrench());
+
+			//Test Items
+//			mario.addItemToInventory(new Wrench());
+//			mario.addItemToInventory(new Bottle());
 //			mario.addItemToInventory(new PowerStar());
-			world.addPlayer(mario, gameMap.at(23, 12));
-//			world.addPlayer(mario, lavaZone.at(2, 2));
-			mario.addItemToInventory(new Bottle());
+//			mario.addItemToInventory(new SuperMushroom());
+
+			//Adding Mario to the world
+			world.addPlayer(mario, gameMap.at(43, 10));
+//			world.addPlayer(mario, lavaZone.at(40, 6));
+
+			//Adding Friendly Actors
+			gameMap.at(45, 12).addActor(new Toad());
+
+			//Adding Hostile Actors
 //			gameMap.at(22, 12).addActor(new PiranhaPlant());
 //			gameMap.at(23, 11).addItem(new Fire());
-			gameMap.at(22, 12).setGround(new HealthFountain());
-//			gameMap.at(21, 12).addActor(new PrincessPeach());
-//			gameMap.at(22, 12).addActor(new Bowser());
-//			gameMap.at(22, 12).setGround(new HealthFountain());
-//			gameMap.at(43, 10).addActor(new Toad());
+// 			gameMap.at(33, 12).addActor(new Goomba());
+
+			//Adding Fountain
+			gameMap.at(45, 14).setGround(new HealthFountain());
+			gameMap.at(47, 14).setGround(new PowerFountain());
+
+			//Test Items
 //			gameMap.at(44, 11).addItem(new Coin(1000));
 //			gameMap.at(36, 11).addItem(new SuperMushroom());
 //			gameMap.at(36, 10).addItem(new PowerStar());
 
-//			mario.addItemToInventory(new PowerStar());
-//			mario.addItemToInventory(new SuperMushroom());
-//			gameMap.at(33, 12).addActor(new Goomba());
-			gameMap.at(33, 13).addActor(new Koopa());
+
 			world.run();
 	}
 

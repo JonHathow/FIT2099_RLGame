@@ -2,6 +2,7 @@ package game.actors;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
@@ -123,6 +124,15 @@ public class Player extends Actor implements WalletCapable, Resettable {
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
 		ResetAction resetAction = new ResetAction();
+
+		//If player health is 0 after taking any other external damage (Such as fire damage), player is defeated.
+		if (!this.isConscious()) {
+			// remove actor
+			map.removeActor(this);
+			display.println(System.lineSeparator() + this + " has been killed.");
+			return new DoNothingAction();
+		}
+
 
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
