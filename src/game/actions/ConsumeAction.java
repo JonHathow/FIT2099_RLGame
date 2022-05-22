@@ -23,7 +23,7 @@ public class ConsumeAction extends Action {
      * @param consumeCapableItem the item of consumption
      */
     public ConsumeAction(ConsumeCapable consumeCapableItem){
-        this.consumeCapableItem = consumeCapableItem;
+        this.setConsumeCapableItem(consumeCapableItem);
     }
 
     /**
@@ -33,8 +33,25 @@ public class ConsumeAction extends Action {
      * @param map the current map of execution
      */
     public String execute(Actor actor, GameMap map) {
-        this.consumeCapableItem.consume(actor,map);
+        this.getConsumeCapableItem().consume(actor,map);
         return menuDescription(actor);
+    }
+
+    //setters and getters
+
+    /**
+     * Returns the ConsumeCapableItem
+     */
+    public ConsumeCapable getConsumeCapableItem() {
+        return consumeCapableItem;
+    }
+
+    /**
+     * Sets the ConsumeCapableItem
+     * @param consumeCapableItem The new ConsumeCapableItem
+     */
+    public void setConsumeCapableItem(ConsumeCapable consumeCapableItem) {
+        this.consumeCapableItem = consumeCapableItem;
     }
 
     /**

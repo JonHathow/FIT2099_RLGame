@@ -66,8 +66,6 @@ public class SuperMushroom extends Item implements ConsumeCapable, TradeCapable 
         //increases maxHP of actors
         actor.increaseMaxHp(50);
 
-        //handle jump stuff
-
     }
 
     /**

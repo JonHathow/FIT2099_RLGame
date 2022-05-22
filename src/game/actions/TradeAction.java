@@ -36,9 +36,9 @@ public class TradeAction extends Action {
      * @param item the item that is up for trading
      */
     public TradeAction(Actor target, String direction, TradeCapable item) {
-        this.target = target;
-        this.direction = direction;
-        this.item = item;
+        this.setTarget(target);
+        this.setDirection(direction);
+        this.setItem(item);
     }
 
     /**
@@ -54,13 +54,13 @@ public class TradeAction extends Action {
         if (actor instanceof WalletCapable){
 
             //check whether the actor's funds are sufficient to trade for the item
-            if (sufficientFunds((WalletCapable) actor, item.getTradeVal())){
+            if (sufficientFunds((WalletCapable) actor, this.getItem().getTradeVal())){
                 //update the wallet of actor, by reducing the wallet with item value
-                ((WalletCapable) actor).updateWallet(-item.getTradeVal());
+                ((WalletCapable) actor).updateWallet(-this.getItem().getTradeVal());
 
                 //add the item to the inventory
-                actor.addItemToInventory((Item) item);
-                return actor + " obtained " + item;
+                actor.addItemToInventory((Item) this.getItem());
+                return actor + " obtained " + this.getItem();
             }
             //if insufficient funds
             else{
@@ -86,6 +86,52 @@ public class TradeAction extends Action {
         return ret;
     }
 
+    //setters and getters
+    /**
+     * Returns the target
+     */
+    public Actor getTarget() {
+        return target;
+    }
+
+    /**
+     * Sets the target with a new target
+     * @param target
+     */
+    public void setTarget(Actor target) {
+        this.target = target;
+    }
+
+    /**
+     * Returns the direction
+     */
+    public String getDirection() {
+        return direction;
+    }
+
+    /**
+     * Sets the direction with a new direction
+     * @param direction
+     */
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    /**
+     * Returns the item
+     */
+    public TradeCapable getItem() {
+        return item;
+    }
+
+    /**
+     * Sets the item with a new item
+     * @param item
+     */
+    public void setItem(TradeCapable item) {
+        this.item = item;
+    }
+
     /**
      * Prepares the menu description of TradeAction.
      *
@@ -93,8 +139,8 @@ public class TradeAction extends Action {
      */
     @Override
     public String menuDescription(Actor actor) {
-        String ret = actor + " buys " + this.item;
-        ret += " ($" + item.getTradeVal() + ")";
+        String ret = actor + " buys " + this.getItem();
+        ret += " ($" + this.getItem().getTradeVal() + ")";
         return ret;
     }
 }

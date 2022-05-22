@@ -53,7 +53,7 @@ public class Goomba extends Enemy {
 	 */
 	@Override
 	public void resetInstance() {
-		resetDone = true;
+		this.setResetDone(true);
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class Goomba extends Enemy {
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
 		//10% chance of suicide for Goomba, and if the reset has been done, suicide too
-		if(Math.random() <= 0.1 || resetDone == true){
+		if(Math.random() <= 0.1 || this.isResetDone() == true){
 			map.removeActor(this);
 			return new DoNothingAction();
 		}
@@ -102,4 +102,18 @@ public class Goomba extends Enemy {
 		return new DoNothingAction();
 	}
 
+	/**
+	 * Returns the resetDone
+	 */
+	public boolean isResetDone() {
+		return resetDone;
+	}
+
+	/**
+	 * Sets the resetDone with a new resetDone
+	 * @param resetDone
+	 */
+	public void setResetDone(boolean resetDone) {
+		this.resetDone = resetDone;
+	}
 }

@@ -84,7 +84,21 @@ public class PiranhaPlant extends Enemy{
     @Override
     public void resetInstance() {
         this.increaseMaxHp(50);
-        resetDone = true;
+        this.setResetDone(true);
     }
 
+    /**
+     * Returns the resetDone
+     */
+    public boolean isResetDone() {
+        return resetDone;
+    }
+
+    /**
+     * Sets the resetDone with a new resetDone
+     * @param resetDone
+     */
+    public void setResetDone(boolean resetDone) {
+        this.resetDone = resetDone;
+    }
 }

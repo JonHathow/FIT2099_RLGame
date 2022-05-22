@@ -14,6 +14,9 @@ import edu.monash.fit2099.engine.actions.MoveActorAction;
  */
 public class FollowBehaviour implements Behaviour {
 
+	/**
+	 * The Actor that is to be followed
+	 */
 	private final Actor target;
 
 	/**
@@ -27,11 +30,11 @@ public class FollowBehaviour implements Behaviour {
 
 	@Override
 	public Action getAction(Actor actor, GameMap map) {
-		if(!map.contains(target) || !map.contains(actor))
+		if(!map.contains(this.getTarget()) || !map.contains(actor))
 			return null;
 		
 		Location here = map.locationOf(actor);
-		Location there = map.locationOf(target);
+		Location there = map.locationOf(this.getTarget());
 
 		int currentDistance = distance(here, there);
 		for (Exit exit : here.getExits()) {
@@ -56,5 +59,12 @@ public class FollowBehaviour implements Behaviour {
 	 */
 	private int distance(Location a, Location b) {
 		return Math.abs(a.x() - b.x()) + Math.abs(a.y() - b.y());
+	}
+
+	/**
+	 * Returns the target
+	 */
+	public Actor getTarget() {
+		return target;
 	}
 }

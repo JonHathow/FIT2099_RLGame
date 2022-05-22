@@ -34,7 +34,7 @@ public class Bottle extends Item implements ConsumeCapable {
 
     @Override
     public void consume(Actor actor, GameMap map) {
-        if (content.size() != 0){
+        if (this.getContent().size() != 0){
             //drinks the water in the bottle
             Water targetWater = this.removeContent();
             targetWater.consume(actor, map);
@@ -42,6 +42,10 @@ public class Bottle extends Item implements ConsumeCapable {
     }
 
     //getter
+
+    /**
+     * Returns the content
+     */
     public Stack<Water> getContent() {
         return content;
     }

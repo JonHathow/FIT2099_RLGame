@@ -53,6 +53,21 @@ public class Coin extends Item implements Resettable {
     }
 
     /**
+     * Returns the resetDone
+     */
+    public boolean isResetDone() {
+        return resetDone;
+    }
+
+    /**
+     * Sets the resetDone with a new resetDone
+     * @param resetDone
+     */
+    public void setResetDone(boolean resetDone) {
+        this.resetDone = resetDone;
+    }
+
+    /**
      * Returns the PickUpAction of the coin
      * @param actor actor who is picking up the coin
      */
@@ -67,7 +82,7 @@ public class Coin extends Item implements Resettable {
      */
     @Override
     public void resetInstance() {
-        resetDone = true;
+        this.setResetDone(true);
     }
 
     /**
@@ -77,7 +92,7 @@ public class Coin extends Item implements Resettable {
     @Override
     public void tick(Location currentLocation) {
         //if reset is executed, remove coin from the map
-        if (resetDone == true){
+        if (this.isResetDone() == true){
             currentLocation.removeItem(this);
         }
     }

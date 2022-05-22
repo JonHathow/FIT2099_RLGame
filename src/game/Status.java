@@ -16,7 +16,7 @@ public enum Status {
     FERTILE, //Ground capability for new trees (sprouts) to spawn on it.
 
     DANGEROUS, //Ground capability that marks it as dangerous. Enemies will not wander onto this ground.
-    SAVE_PRINCESS,
-    CAN_FLY,
-    POWER_UP,
+    SAVE_PRINCESS, //Gives player the ability to save the princess
+    CAN_FLY,    //use this status to tell that this actor can fly
+    POWER_UP,  //use this status to tell that this actor has powered-up
 }

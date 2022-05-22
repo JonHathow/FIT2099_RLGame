@@ -73,26 +73,47 @@ public class JumpAction extends Action {
     }
 
     //setters and getters
+    /**
+     * Returns the direction
+     */
     public String getDirection() {
         return direction;
     }
 
+    /**
+     * Sets the direction with a new direction
+     * @param direction
+     */
     public void setDirection(String direction) {
         this.direction = direction;
     }
 
+    /**
+     * Returns the ground
+     */
     public Jumpable getGround() {
         return ground;
     }
 
+    /**
+     * Sets the ground with a new ground
+     * @param ground
+     */
     public void setGround(Jumpable ground) {
         this.ground = ground;
     }
 
+    /**
+     * Returns the location
+     */
     public Location getLocation() {
         return location;
     }
 
+    /**
+     * Sets the location with a new location
+     * @param location
+     */
     public void setLocation(Location location) {
         this.location = location;
     }

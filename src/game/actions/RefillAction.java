@@ -26,7 +26,7 @@ public class RefillAction extends Action {
      * @param fountain the Fountain target
      */
     public RefillAction(Fountain fountain){
-        this.fountain = fountain;
+        this.setFountain(fountain);
     }
 
     /**
@@ -39,12 +39,12 @@ public class RefillAction extends Action {
     public String execute(Actor actor, GameMap map) {
 
         //if the fountain is empty, don't refill
-        if (fountain.getCapacity() == 0){
-            return fountain + " is currently empty!";
+        if (this.getFountain().getCapacity() == 0){
+            return this.getFountain() + " is currently empty!";
         }
 
         //if it is not empty, call the refill method in that particular fountain
-        fountain.refill(actor,map);
+        this.getFountain().refill(actor,map);
 
         //if the actor is a player,
         if (actor.hasCapability(Status.HOSTILE_TO_ENEMY)){
@@ -65,6 +65,22 @@ public class RefillAction extends Action {
         return menuDescription(actor);
     }
 
+    //setters and getters
+    /**
+     * Returns the fountain
+     */
+    public Fountain getFountain() {
+        return fountain;
+    }
+
+    /**
+     * Sets the fountain with a new fountain
+     * @param fountain
+     */
+    public void setFountain(Fountain fountain) {
+        this.fountain = fountain;
+    }
+
     /**
      * Prepares the menu description of RefillAction.
      *
@@ -72,6 +88,6 @@ public class RefillAction extends Action {
      */
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " refills bottle from " + fountain;
+        return actor + " refills bottle from " + this.getFountain();
     }
 }

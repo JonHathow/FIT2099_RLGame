@@ -23,12 +23,16 @@ public class Fire extends Item {
      */
     public Fire() {
         super("Fire", 'v', false);
-        fadeCounter = 3;
+        this.setFadeCounter(3);
     }
 
+    /**
+     *
+     * @param currentLocation The location of the ground on which we lie.
+     */
     @Override
     public void tick(Location currentLocation) {
-        if (fadeCounter == 0){
+        if (this.getFadeCounter() == 0){
             //remove the item from the map if the fade counter reaches 0
             currentLocation.removeItem(this);
         }
@@ -43,7 +47,21 @@ public class Fire extends Item {
             }
 
         }
-        fadeCounter--;
+        this.setFadeCounter(this.getFadeCounter()-1);
+    }
 
+    /**
+     * Returns the fadeCounter
+     */
+    public int getFadeCounter() {
+        return fadeCounter;
+    }
+
+    /**
+     * Sets the fadeCounter with a new fadeCounter
+     * @param fadeCounter
+     */
+    public void setFadeCounter(int fadeCounter) {
+        this.fadeCounter = fadeCounter;
     }
 }

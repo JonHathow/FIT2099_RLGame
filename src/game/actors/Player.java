@@ -31,14 +31,14 @@ public class Player extends Actor implements WalletCapable, Resettable {
 	/**
 	 * A boolean flag to denote whether the reset has been called
 	 */
-	private boolean resetDone = false;
+	private boolean resetDone;
 
 	/**
 	 * A boolean flag to denote whether the reset action has been added
 	 */
-	private boolean resetAdded = false;
+	private boolean resetAdded;
 
-	private int intrinsicBooster = 0;
+	private int intrinsicBooster;
 
 	/**
 	 * Constructor.
@@ -56,9 +56,12 @@ public class Player extends Actor implements WalletCapable, Resettable {
 		//register the reset instance into ResetManager
 		this.registerInstance();
 
+		this.setResetDone(false);
+		this.setResetAdded(false);
+		this.setIntrinsicBooster(0);
+
 	}
 	/**
-	 *
 	 * @param item The Item to add.
 	 */
 	@Override
@@ -74,10 +77,10 @@ public class Player extends Actor implements WalletCapable, Resettable {
 	@Override
 	protected IntrinsicWeapon getIntrinsicWeapon() {
 		if (this.hasCapability(Status.POWER_UP)){
-			this.intrinsicBooster += 15;
+			this.setIntrinsicBooster(this.getIntrinsicBooster()+15);
 			this.removeCapability(Status.POWER_UP);
 		}
-		return new IntrinsicWeapon(super.getIntrinsicWeapon().damage()+this.intrinsicBooster,super.getIntrinsicWeapon().verb());
+		return new IntrinsicWeapon(super.getIntrinsicWeapon().damage()+this.getIntrinsicBooster(),super.getIntrinsicWeapon().verb());
 	}
 
 	/**
@@ -110,7 +113,7 @@ public class Player extends Actor implements WalletCapable, Resettable {
 		}
 		//heal up to max health
 		this.heal(this.getMaxHp());
-		resetDone = true;
+		this.setResetDone(true);
 	}
 
 	/**
@@ -154,15 +157,61 @@ public class Player extends Actor implements WalletCapable, Resettable {
 			printing += "\nMARIO IS INVINCIBLE!";
 		}
 		//Resetting option
-		if (resetDone == false) {
+		if (this.isResetDone() == false) {
 			actions.add(resetAction);
-			resetAdded = true;
+			this.setResetAdded(true);
 		}
-		else if (resetDone == true && resetAdded == true){
+		else if (this.isResetDone() == true && this.isResetAdded() == true){
 			actions.remove(resetAction);
 		}
 		display.println(printing);
 		return menu.showMenu(this, actions, display);
+	}
+
+	//setters and getters
+	/**
+	 * Returns the resetDone
+	 */
+	public int getIntrinsicBooster() {
+		return intrinsicBooster;
+	}
+
+	/**
+	 * Sets the intrinsicBooster with a new intrinsicBooster
+	 * @param intrinsicBooster
+	 */
+	public void setIntrinsicBooster(int intrinsicBooster) {
+		this.intrinsicBooster = intrinsicBooster;
+	}
+
+	/**
+	 * Returns the resetDone
+	 */
+	public boolean isResetDone() {
+		return resetDone;
+	}
+
+	/**
+	 * Sets the resetDone with a new resetDone
+	 * @param resetDone
+	 */
+	public void setResetDone(boolean resetDone) {
+		this.resetDone = resetDone;
+	}
+
+	/**
+	 * Returns the resetDone
+	 */
+	public boolean isResetAdded() {
+		return resetAdded;
+	}
+
+	/**
+	 * Sets the resetAdded with a new resetAdded
+	 * @param resetAdded
+	 */
+	public void setResetAdded(boolean resetAdded) {
+		this.resetAdded = resetAdded;
 	}
 
 	/**

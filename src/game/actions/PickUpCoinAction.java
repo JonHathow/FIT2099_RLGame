@@ -26,7 +26,7 @@ public class PickUpCoinAction extends PickUpItemAction {
      */
     public PickUpCoinAction(Coin coin) {
         super(coin);
-        this.coin = coin;
+        this.setCoin(coin);
     }
 
     /**
@@ -37,13 +37,13 @@ public class PickUpCoinAction extends PickUpItemAction {
      */
     public String pickUp(Actor actor, GameMap map) {
         //remove the coin from the map
-        map.locationOf(actor).removeItem(coin);
+        map.locationOf(actor).removeItem(this.getCoin());
 
         //checks whether the actor has a wallet via WalletCapable
         if (actor instanceof WalletCapable){
 
             //if so, update the wallet of the actor based on coin's value
-            ((WalletCapable) actor).updateWallet(coin.getValue());
+            ((WalletCapable) actor).updateWallet(this.getCoin().getValue());
         }
         return menuDescription(actor);
     }
@@ -59,6 +59,21 @@ public class PickUpCoinAction extends PickUpItemAction {
         return this.pickUp(actor,map);
     }
 
+    //setters and getters
+    /**
+     * Returns the coin
+     */
+    public Coin getCoin() {
+        return coin;
+    }
+
+    /**
+     * Sets the coin with a new coin
+     * @param coin
+     */
+    public void setCoin(Coin coin) {
+        this.coin = coin;
+    }
 
     /**
      * Prepares the menu description of ConsumeAction.
@@ -67,6 +82,6 @@ public class PickUpCoinAction extends PickUpItemAction {
      */
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " picks up the Coin($" + coin.getValue() + ")";
+        return actor + " picks up the Coin($" + this.getCoin().getValue() + ")";
     }
 }

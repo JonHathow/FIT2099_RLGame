@@ -21,12 +21,25 @@ import java.util.Map;
 public abstract class Enemy extends Actor implements Resettable {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
+    /**
+     * Adds the behaviour into behaviours hashmap
+     * @param key used to keep track on where the behaviour is in the hash map
+     * @param behaviour the behaviour to be added
+     */
     public void addBehaviour(int key, Behaviour behaviour){
         this.getBehaviours().put(key,behaviour);
     }
+
+    /**
+     * Clears every behaviour from the behaviours hash map
+     */
     public void clearBehaviour(){
         this.getBehaviours().clear();
     }
+
+    /**
+     * Returns the behaviours hashmap
+     */
     public Map<Integer, Behaviour> getBehaviours() {
         return behaviours;
     }
@@ -52,7 +65,6 @@ public abstract class Enemy extends Actor implements Resettable {
      */
     @Override
     public abstract Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display);
-
     /**
      *
      * @param otherActor the Actor that might be performing attack

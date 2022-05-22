@@ -92,30 +92,54 @@ public abstract class Fountain extends Ground {
     }
 
     //setters and getters
+    /**
+     * Sets the refillAction with a new refillAction
+     * @param refillAction
+     */
     public void setRefillAction(RefillAction refillAction) {
         this.refillAction = refillAction;
     }
 
+    /**
+     * Returns the refillAction
+     */
     public RefillAction getRefillAction() {
         return refillAction;
     }
 
+    /**
+     * Returns the water
+     */
     public Water getWater() {
         return water;
     }
 
+    /**
+     * Sets the water with a new water
+     * @param water
+     */
     public void setWater(Water water) {
         this.water = water;
     }
 
+    /**
+     * Resets the capacity of Fountain back to max (10)
+     */
     public void resetCapacity() {
         this.capacity = 10;
     }
 
+    /**
+     * Returns the capacity
+     */
     public int getCapacity() {
         return capacity;
     }
 
+    /**
+     * Reduces tha capacity of fountain
+     * @param val the value of capacity to be reduced from the fountain
+     */
     public void reduceCapacity(int val) {
         this.capacity -= val;
     }

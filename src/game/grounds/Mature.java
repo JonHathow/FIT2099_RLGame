@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 import game.actions.JumpAction;
+import game.actors.FlyingKoopa;
 import game.actors.Goomba;
 import game.actors.Koopa;
 import game.items.Coin;
@@ -58,7 +59,12 @@ public class Mature extends Tree {
 
         //15% chance to Spawn Koopa if there are no other actors standing on it.
         if (Math.random() <= 0.15 && !(location.containsAnActor())){
-            location.addActor(new Koopa());
+            if (Math.random() <= 0.50){
+                location.addActor(new Koopa());
+            }
+            else{
+                location.addActor(new FlyingKoopa());
+            }
         }
 
         //Grow a new sprout in one of it's fertile surrounding every 5 turns

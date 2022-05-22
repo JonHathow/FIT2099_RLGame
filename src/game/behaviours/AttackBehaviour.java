@@ -31,9 +31,8 @@ public class AttackBehaviour implements Behaviour {
      * @param direction
      */
     public AttackBehaviour(Actor target, String direction) {
-        this.target = target;
-        this.direction = direction;
-
+        this.setTarget(target);
+        this.setDirection(direction);
     }
 
     /**
@@ -50,13 +49,43 @@ public class AttackBehaviour implements Behaviour {
             //if it contains and actor
             if (destination.containsAnActor()){
                 //and if actor is equal to target
-                if (destination.getActor().equals(this.target)){
+                if (destination.getActor().equals(this.getTarget())){
                     //create an attack action towards that target
-                    return new AttackAction(this.target,this.direction);
+                    return new AttackAction(this.getTarget(),this.getDirection());
                 }
 
             }
         }
         return null;
+    }
+
+    /**
+     * Returns the target
+     */
+    public Actor getTarget() {
+        return target;
+    }
+
+    /**
+     * Sets the target with a new target
+     * @param target
+     */
+    public void setTarget(Actor target) {
+        this.target = target;
+    }
+
+    /**
+     * Returns the direction
+     */
+    public String getDirection() {
+        return direction;
+    }
+
+    /**
+     * Sets the direction with a new direction
+     * @param direction
+     */
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 }

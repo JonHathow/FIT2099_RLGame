@@ -46,15 +46,19 @@ public class Bowser extends Enemy{
         this.addBehaviour(3, new DrinkBehaviour());
         this.registerInstance();
     }
+
+    /**
+     *
+     */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        if (startLocation == null) {
-            startLocation =  map.locationOf(this);
+        if (this.getStartLocation() == null) {
+            setStartLocation(map.locationOf(this));
         }
-        if (resetDone){
-            MoveActorAction moveActorAction = new MoveActorAction(startLocation,null);
+        if (this.isResetDone()){
+            MoveActorAction moveActorAction = new MoveActorAction(this.getStartLocation(),null);
             moveActorAction.execute(this,map);
-            resetDone = false;
+            this.setResetDone(false);
         }
         //loops through the behaviours hashmap and see what to do next
         for(Behaviour behaviour : getBehaviours().values()) {
@@ -97,12 +101,42 @@ public class Bowser extends Enemy{
     }
 
     /**
+     * Returns the resetDone
+     */
+    public boolean isResetDone() {
+        return resetDone;
+    }
+
+    /**
+     * Sets the resetDone with a new resetDone
+     * @param resetDone
+     */
+    public void setResetDone(boolean resetDone) {
+        this.resetDone = resetDone;
+    }
+
+    /**
+     * Returns the startLocation
+     */
+    public Location getStartLocation() {
+        return startLocation;
+    }
+
+    /**
+     * Sets the startLocation with a new startLocation
+     * @param startLocation
+     */
+    public void setStartLocation(Location startLocation) {
+        this.startLocation = startLocation;
+    }
+
+    /**
      * Sets what happens when reset is called by ResetManager
      */
     @Override
     public void resetInstance() {
         this.heal(this.getMaxHp());
         this.clearBehaviour();
-        resetDone = true;
+        this.setResetDone(true);
     }
 }

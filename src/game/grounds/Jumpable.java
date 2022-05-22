@@ -11,9 +11,27 @@ import game.actions.JumpAction;
 public interface Jumpable {
 
     //setters and getters
+
+    /**
+     * Sets the fallDamage with a new fallDamage
+     * @param fallDamage
+     */
     void setFallDamage(int fallDamage);
+
+    /**
+     * Sets the successRate with a new successRate
+     * @param successRate
+     */
     void setSuccessRate(int successRate);
+
+    /**
+     * Returns the successRate
+     */
     int getSuccessRate();
+
+    /**
+     * Returns the fallDamage
+     */
     int getFallDamage();
 
     /**

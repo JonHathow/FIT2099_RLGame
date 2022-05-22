@@ -23,11 +23,6 @@ import java.util.Map;
  */
 public class Koopa extends Enemy {
     /**
-     * A hashmap of behaviours for Koopa
-     */
-    private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
-
-    /**
      * The otherActor involved in battle
      */
     private Actor otherActor;
@@ -74,7 +69,7 @@ public class Koopa extends Enemy {
      */
     @Override
     public void resetInstance() {
-        resetDone = true;
+        this.setResetDone(true);
     }
 
     /**
@@ -88,7 +83,7 @@ public class Koopa extends Enemy {
      */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
-        this.otherActor = otherActor;
+        this.setOtherActor(otherActor);
         ActionList actions = new ActionList();
 
         //if Koopa is not hiding in shell and the otherActor is hostile or if otherActor is Invincible, allows Koopa to be attacked
@@ -154,7 +149,7 @@ public class Koopa extends Enemy {
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
 
         //if reset has been
-        if(resetDone == true){
+        if(this.isResetDone() == true){
             //remove actor from the map
             map.removeActor(this);
             return new DoNothingAction();
@@ -168,5 +163,34 @@ public class Koopa extends Enemy {
         return new DoNothingAction();
     }
 
+    //setters and getters
+    /**
+     * Returns the otherActor
+     */
+    public Actor getOtherActor() {
+        return otherActor;
+    }
 
+    /**
+     * Sets the otherActor with a new otherActor
+     * @param otherActor
+     */
+    public void setOtherActor(Actor otherActor) {
+        this.otherActor = otherActor;
+    }
+
+    /**
+     * Returns the resetDone
+     */
+    public boolean isResetDone() {
+        return resetDone;
+    }
+
+    /**
+     * Sets the resetDone with a new resetDone
+     * @param resetDone
+     */
+    public void setResetDone(boolean resetDone) {
+        this.resetDone = resetDone;
+    }
 }
