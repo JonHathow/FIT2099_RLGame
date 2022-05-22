@@ -3,12 +3,11 @@ package game.actions;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.actors.Bowser;
 import game.actors.Goomba;
 import game.actors.Koopa;
 import game.grounds.Sprout;
-import game.populate.ActorRandomPopulator;
-import game.populate.GroundRandomPopulator;
+import game.populators.ActorRandomPopulator;
+import game.populators.GroundRandomPopulator;
 import game.resets.ResetManager;
 
 /**

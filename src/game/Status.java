@@ -12,8 +12,9 @@ public enum Status {
     TALL, // use this status to tell that current instance has "grown".
     DESTROY_SHELL, // use this status to allows actors to destroy Koopa's shells
     DORMANT, // use this status to tell that Koopa is dormant(hiding in shell)
+
     INVINCIBLE, // use this status to tell that Actor is invincible
-    FERTILE, //Ground capability for new trees (sprouts) to spawn on it.
+    FERTILE, //Ground capability for any tree, warp pipe, and actors to spawn on it.
 
     DANGEROUS, //Ground capability that marks it as dangerous. Enemies will not wander onto this ground.
     SAVE_PRINCESS, //Gives player the ability to save the princess

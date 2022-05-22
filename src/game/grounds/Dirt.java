@@ -10,7 +10,7 @@ public class Dirt extends Ground {
 
 	/**
 	 * Dirt constructor. Dirt has the fertile capability, which means that
-	 * it has the capability to grow new sprouts on it.
+	 * it has the capability to grow new trees, warp pipes, and actors.
 	 */
 	public Dirt() {
 		super('.');
