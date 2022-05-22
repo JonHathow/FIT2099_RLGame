@@ -20,10 +20,11 @@ import java.util.List;
  * warp in between maps. A warp pipe will send mario to another warp pipe in a different location.
  *
  * @author How Yu Chern
- * @version 2.0.0
+ * @version 3.0.0
  */
 public class WarpPipe extends Ground implements Jumpable, Resettable {
 
+	//JumpAction Variables
 	/**
 	 * The success rate of the player jumping onto the warp pipe.
 	 */
@@ -39,12 +40,13 @@ public class WarpPipe extends Ground implements Jumpable, Resettable {
 	 */
 	private JumpAction jumpAction;
 
+	//Tick Variable
 	/**
 	 * The tick counter, to keep track of the number of ticks (how much time has passed).
 	 */
 	private int counter;
 
-	//Warp Handling
+	//Warp Variables
 	/**
 	 * The source location of the current warp pipe that other warp pipes can send mario to.
 	 */
@@ -62,8 +64,6 @@ public class WarpPipe extends Ground implements Jumpable, Resettable {
 	 */
 	private boolean resetFlag;
 
-	private WarpPipeManager warpPipeManager = new WarpPipeManager();
-
 	//Methods
 	/**
 	 * Warp Pipe constructor.
@@ -75,15 +75,30 @@ public class WarpPipe extends Ground implements Jumpable, Resettable {
 		setCounter(0);
 		setResetFlag(false);
 		this.registerInstance();
-		warpPipeManager.registerPipe(this);
 	}
 
+	/**
+	 * Override of String method.
+	 * @return The String which describes the name of the warp pipe.
+	 */
 	@Override
 	public String toString() {
 		return "Warp Pipe";
 	}
 
-
+	/**
+	 * Override of canActorEnter method.
+	 * @param actor the Actor to check
+	 * @return a boolean, which is true if the actor can enter, false otherwise.
+	 */
+	@Override
+	public boolean canActorEnter(Actor actor) {
+		boolean ret = false;
+		if ((actor.hasCapability(Status.HOSTILE_TO_ENEMY) && actor.hasCapability(Status.INVINCIBLE)) || actor.hasCapability(Status.CAN_FLY)){
+			ret = true;
+		}
+		return ret;
+	}
 	/**
 	 * Allowable Actions method that implements the move actor action. Gives the player the
 	 * option to warp using the warp pipe he is standing on.
@@ -107,7 +122,7 @@ public class WarpPipe extends Ground implements Jumpable, Resettable {
 		//Warp Action
 		if (location.getActor() == actor &&  actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
 			//Link the Overworld warp pipe to the Lava Zone warp pipe.
-			//warpPipeManager.link(this);
+			WarpPipeManager.getInstance().link(this);
 			//Set the warp action.
 			actions.add(warp);
 		}
@@ -117,6 +132,10 @@ public class WarpPipe extends Ground implements Jumpable, Resettable {
 	/**
 	 * Tick method that helps a warp pipe keep track of it's source location.
 	 * Also enables a piranha plant to spawn on top of the warp pipe on the second turn.
+	 *
+	 * The Warp Pipe is registered here instead of the constructor, because it has to know
+	 * it's location first before reistering, in order for WarpPipeManager to aid in managing the warps.
+	 *
 	 * @param location The location of the Ground
 	 */
 	@Override
@@ -128,7 +147,10 @@ public class WarpPipe extends Ground implements Jumpable, Resettable {
 		/* Ping this warp pipe's source location at regular intervals.
 		The getter getSource() will be used to broadcast the warp pipe's location for
 		other warp pipes to link to it.*/
-		setSource(location);
+		if (counter == 1) {
+			setSource(location);
+			WarpPipeManager.getInstance().registerPipeInstance(this);
+		}
 
 		//Spawn Piranha Plant on the second turn (including initialization where counter == 0).
 		if (counter == 1 && !(location.containsAnActor())){
@@ -163,6 +185,10 @@ public class WarpPipe extends Ground implements Jumpable, Resettable {
 		this.counter = counter;
 	}
 
+	/**
+	 * Setter for warp action (which is a MoveActorAction).
+	 * @param warp the MoveActorAction which will warp the player to another location.
+	 */
 	public void setWarp(MoveActorAction warp) {
 		this.warp = warp;
 	}

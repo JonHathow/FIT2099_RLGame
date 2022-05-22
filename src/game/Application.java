@@ -44,7 +44,7 @@ public class Application {
 				".......................................+#_____###++.............................",
 				".......................................+#______###..............................",
 				"........................................+#_____###..............................",
-				".....................C...........................##.............................",
+				".....................C..C..C.....................##.............................",
 				"...................................................#............................",
 				"....................................................#...........................",
 				".....................................................#..........................",
@@ -73,6 +73,9 @@ public class Application {
 			GameMap lavaZone = new GameMap(groundFactory, lavaMap);
 			world.addGameMap(lavaZone);
 
+			//Let Warp Pipe Manager know about the Lava Zone map, for identifying the Lava Zone Warp Pipe.
+			WarpPipeManager.getInstance().setLavaMap(lavaZone);
+
 			/*
 			Populate GameMap with trees.
 			Minimum 5 trees
@@ -89,6 +92,7 @@ public class Application {
 			mario.addItemToInventory(new Wrench());
 //			mario.addItemToInventory(new PowerStar());
 			world.addPlayer(mario, gameMap.at(23, 12));
+//			world.addPlayer(mario, lavaZone.at(2, 2));
 			mario.addItemToInventory(new Bottle());
 //			gameMap.at(22, 12).addActor(new PiranhaPlant());
 //			gameMap.at(23, 11).addItem(new Fire());
